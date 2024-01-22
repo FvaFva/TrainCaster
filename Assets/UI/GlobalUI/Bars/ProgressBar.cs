@@ -32,7 +32,7 @@ internal class ProgressBar: MonoBehaviour
 
     private void ChangeProgressBar()
     {
-        _progressBar.value = _source.Current / _source.Max;
+        _progressBar.value = Mathf.Clamp01(_source.Current / _source.Max);
     }
 
     private void ChangeProgressText()

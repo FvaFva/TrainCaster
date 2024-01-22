@@ -13,7 +13,8 @@ public class SpellSlot : MonoBehaviour
 
     public void Cast(CastTarget target)
     {
-        _wagon.Cast(target);
+        if(IsActive)
+            _wagon.Cast(target);
     }
 
     public void ApplyWagon(Wagon wagon)

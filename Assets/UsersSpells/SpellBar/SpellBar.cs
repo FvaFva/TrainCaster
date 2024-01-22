@@ -10,11 +10,6 @@ public class SpellBar : MonoBehaviour
 
     private Dictionary<Guid, SpellSlot> _slots;
 
-    private void Awake()
-    {
-        _slots = new Dictionary<Guid, SpellSlot>();
-    }
-
     private void OnEnable()
     {
         _train.ChoseNewWagons += UpdateWagonsInSlots;
@@ -23,6 +18,11 @@ public class SpellBar : MonoBehaviour
     private void OnDisable()
     {
         _train.ChoseNewWagons -= UpdateWagonsInSlots;
+    }
+
+    public void Init()
+    {
+        _slots = new Dictionary<Guid, SpellSlot>();
     }
 
     public void BindSlotToAction(Guid guid)

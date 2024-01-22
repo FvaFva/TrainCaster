@@ -8,7 +8,7 @@ public class EnemyBody : MonoBehaviour, IEnemyPart
 
     private void Awake()
     {
-        _hitPoints = new HitPoints(0, 0);
+        _hitPoints = new HitPoints(1, 0);
         _hitPointsView.SetSource(_hitPoints);
     }
 

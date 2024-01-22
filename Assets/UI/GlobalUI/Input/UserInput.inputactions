@@ -6,13 +6,22 @@
             "id": "34fd3a0d-dc3c-41d6-bb3e-26320e5980e3",
             "actions": [
                 {
-                    "name": "Moving",
+                    "name": "ChangeWagon",
                     "type": "Value",
                     "id": "d749cca5-bc29-4712-9475-31e8b231c102",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "RotateCamera",
+                    "type": "Button",
+                    "id": "3d1a4c3b-cbaf-4114-a7a9-490e1d5f514a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -23,7 +32,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Moving",
+                    "action": "ChangeWagon",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -34,7 +43,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Moving",
+                    "action": "ChangeWagon",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -45,9 +54,20 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Moving",
+                    "action": "ChangeWagon",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "c422bafe-966b-4e0e-924f-11e832818228",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "RotateCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

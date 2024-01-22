@@ -28,13 +28,22 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             ""id"": ""34fd3a0d-dc3c-41d6-bb3e-26320e5980e3"",
             ""actions"": [
                 {
-                    ""name"": ""Moving"",
+                    ""name"": ""ChangeWagon"",
                     ""type"": ""Value"",
                     ""id"": ""d749cca5-bc29-4712-9475-31e8b231c102"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RotateCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d1a4c3b-cbaf-4114-a7a9-490e1d5f514a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -45,7 +54,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Moving"",
+                    ""action"": ""ChangeWagon"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -56,7 +65,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse Keyboard"",
-                    ""action"": ""Moving"",
+                    ""action"": ""ChangeWagon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -67,9 +76,20 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse Keyboard"",
-                    ""action"": ""Moving"",
+                    ""action"": ""ChangeWagon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c422bafe-966b-4e0e-924f-11e832818228"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse Keyboard"",
+                    ""action"": ""RotateCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -203,7 +223,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
 }");
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
-        m_Movement_Moving = m_Movement.FindAction("Moving", throwIfNotFound: true);
+        m_Movement_ChangeWagon = m_Movement.FindAction("ChangeWagon", throwIfNotFound: true);
+        m_Movement_RotateCamera = m_Movement.FindAction("RotateCamera", throwIfNotFound: true);
         // Cast
         m_Cast = asset.FindActionMap("Cast", throwIfNotFound: true);
         m_Cast_CastSkillA = m_Cast.FindAction("CastSkillA", throwIfNotFound: true);
@@ -272,12 +293,14 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
     // Movement
     private readonly InputActionMap m_Movement;
     private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
-    private readonly InputAction m_Movement_Moving;
+    private readonly InputAction m_Movement_ChangeWagon;
+    private readonly InputAction m_Movement_RotateCamera;
     public struct MovementActions
     {
         private @UserInput m_Wrapper;
         public MovementActions(@UserInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Moving => m_Wrapper.m_Movement_Moving;
+        public InputAction @ChangeWagon => m_Wrapper.m_Movement_ChangeWagon;
+        public InputAction @RotateCamera => m_Wrapper.m_Movement_RotateCamera;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -287,16 +310,22 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_MovementActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_MovementActionsCallbackInterfaces.Add(instance);
-            @Moving.started += instance.OnMoving;
-            @Moving.performed += instance.OnMoving;
-            @Moving.canceled += instance.OnMoving;
+            @ChangeWagon.started += instance.OnChangeWagon;
+            @ChangeWagon.performed += instance.OnChangeWagon;
+            @ChangeWagon.canceled += instance.OnChangeWagon;
+            @RotateCamera.started += instance.OnRotateCamera;
+            @RotateCamera.performed += instance.OnRotateCamera;
+            @RotateCamera.canceled += instance.OnRotateCamera;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
         {
-            @Moving.started -= instance.OnMoving;
-            @Moving.performed -= instance.OnMoving;
-            @Moving.canceled -= instance.OnMoving;
+            @ChangeWagon.started -= instance.OnChangeWagon;
+            @ChangeWagon.performed -= instance.OnChangeWagon;
+            @ChangeWagon.canceled -= instance.OnChangeWagon;
+            @RotateCamera.started -= instance.OnRotateCamera;
+            @RotateCamera.performed -= instance.OnRotateCamera;
+            @RotateCamera.canceled -= instance.OnRotateCamera;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -403,7 +432,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
     }
     public interface IMovementActions
     {
-        void OnMoving(InputAction.CallbackContext context);
+        void OnChangeWagon(InputAction.CallbackContext context);
+        void OnRotateCamera(InputAction.CallbackContext context);
     }
     public interface ICastActions
     {

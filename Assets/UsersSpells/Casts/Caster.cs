@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 public class Caster : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class Caster : MonoBehaviour
     [SerializeField] StaticSelector _staticSelector;
     [SerializeField] SpellBar _spellBar;
 
-    private UserInput _input;
+    [Inject] private UserInput _input;
+
     private BaseSelector _currentSelector;
     private Dictionary<TypesSelection, BaseSelector> _selectionMap;
     private Guid _caster;
@@ -24,8 +26,6 @@ public class Caster : MonoBehaviour
             { TypesSelection.Vector, _staticSelector }
         };
 
-        _input = new UserInput();
-
         _input.Cast.CastSkillA.performed += StartSelectTarget;
         _input.Cast.CastSkillA.canceled += TargetSelected;
         _spellBar.BindSlotToAction(_input.Cast.CastSkillA.id);
@@ -33,16 +33,6 @@ public class Caster : MonoBehaviour
         _input.Cast.CastSkillB.performed += StartSelectTarget;
         _input.Cast.CastSkillB.canceled += TargetSelected;
         _spellBar.BindSlotToAction(_input.Cast.CastSkillB.id);
-    }
-
-    private void OnEnable()
-    {
-        _input.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _input.Disable();
     }
 
     private void TargetSelected(InputAction.CallbackContext context)
