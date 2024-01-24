@@ -9,15 +9,12 @@ public class EnemyModel : MonoBehaviour, IStored
 
     private Transform _baseParent;
     private Vector3 _baseSize;
-    private bool _isFree;
 
     private void Awake()
     {
         TryGetComponent<Animator>(out Animator animator);
         MainAnimator = animator;
         gameObject.SetActive(false);
-        _isFree = true;
-
         _baseParent = transform.parent;
         _baseSize = transform.localScale;
     }
@@ -25,14 +22,11 @@ public class EnemyModel : MonoBehaviour, IStored
     public Animator MainAnimator { get; private set; }
     public int Speed => _speed;
 
-    public bool IsFree => _isFree;
-
     public void Initialized(EnemyRouter parent)
     {
         transform.parent = parent.transform;
         transform.localPosition = Vector3.zero;
         gameObject.SetActive(true);
-        _isFree = false;
     }
 
     public void TakeOff()
@@ -46,7 +40,6 @@ public class EnemyModel : MonoBehaviour, IStored
         transform.rotation = default;
         transform.localScale = _baseSize;
         gameObject.SetActive(false);
-        _isFree = true;
     }
 
     public int GetRandomizeHitPoints()

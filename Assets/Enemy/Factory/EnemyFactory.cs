@@ -40,13 +40,13 @@ public class EnemyFactory : MonoBehaviour, IInitialized
 
         for (int i = 0; i < minLength; i++)
         {
-            Storage.Instance.Put(_models[i].gameObject, _countPreload[i]);
+            PoolService.Instance.Put(_models[i].gameObject, _countPreload[i]);
         }
     }
 
     public void CreateEnemy()
     {
-        if (Storage.Instance.TryGetFree<EnemyModel>(_models[0].gameObject, out EnemyModel model))
+        if (PoolService.Instance.TryGetFree<EnemyModel>(_models[0].gameObject, out EnemyModel model))
         {
             EnemyRouter enemy = Instantiate(_enemy, transform.position, default, transform);
             enemy.gameObject.name = _models[0].name;

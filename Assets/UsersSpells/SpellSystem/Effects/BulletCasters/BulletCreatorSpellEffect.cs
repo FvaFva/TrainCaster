@@ -10,7 +10,7 @@ public class BulletCreatorSpellEffect : BaseSpellEffect
 
     public override void Apply(Vector3 castPoint, CastTarget target, Action<IEnumerable<CastTarget>> onEffectFinish)
     {
-        if (Storage.Instance.TryGetFree<BaseBullet>(_bullet.gameObject, out BaseBullet bullet))
+        if (PoolService.Instance.TryGetFree<BaseBullet>(_bullet.gameObject, out BaseBullet bullet))
         {
             Vector3 direction = target.Point - castPoint;
             direction.y = _freezeY ? 0 : direction.y;
@@ -21,6 +21,6 @@ public class BulletCreatorSpellEffect : BaseSpellEffect
 
     public override void InitResources()
     {
-        Storage.Instance.Put(_bullet.gameObject, 30);
+        PoolService.Instance.Put(_bullet.gameObject, 30);
     }
 }

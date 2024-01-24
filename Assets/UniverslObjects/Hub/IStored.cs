@@ -1,4 +1,8 @@
-﻿public interface IStored
+﻿using System;
+using UnityEngine;
+
+public interface IStored
 {
-    public bool IsFree { get; }
+    public event Action OnTurnOff;
+    public GameObject gameObject { get; }
 }
