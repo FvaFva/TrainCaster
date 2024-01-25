@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class BaseBullet: MonoBehaviour, IStored
 {
-    public abstract bool IsFree { get; }
+    private ICell<BaseBullet> _cell;
+
     public abstract void Shot(Vector3 position, Vector3 direction, Action<IEnumerable<CastTarget>> onCrush);
 
     protected Action<IEnumerable<CastTarget>> _onCrush;
@@ -22,6 +23,12 @@ public abstract class BaseBullet: MonoBehaviour, IStored
     protected void Finish(CastTarget target)
     {
         _onCrush?.Invoke(new CastTarget[] {target});
+        _cell.AddItem(this);
         gameObject.SetActive(false);
+    }
+
+    public void ConnectToCell(ICell<IStored> myCell)
+    {
+        _cell = (ICell<BaseBullet>)myCell;
     }
 }

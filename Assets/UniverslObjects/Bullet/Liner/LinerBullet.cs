@@ -10,8 +10,6 @@ public class LinerBullet : BaseBullet
 
     private Coroutine _fly;
 
-    public override bool IsFree => gameObject.activeSelf == false;
-
     public override void Shot(Vector3 position, Vector3 direction, Action<IEnumerable<CastTarget>> onCrush)
     {
         transform.position = position;

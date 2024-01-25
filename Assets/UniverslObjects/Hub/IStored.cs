@@ -3,6 +3,6 @@ using UnityEngine;
 
 public interface IStored
 {
-    public event Action OnTurnOff;
+    public void ConnectToCell(ICell<IStored> myCell);
     public GameObject gameObject { get; }
 }

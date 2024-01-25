@@ -9,6 +9,7 @@ public class EnemyModel : MonoBehaviour, IStored
 
     private Transform _baseParent;
     private Vector3 _baseSize;
+    private ICell<EnemyModel> _cell;
 
     private void Awake()
     {
@@ -21,6 +22,11 @@ public class EnemyModel : MonoBehaviour, IStored
 
     public Animator MainAnimator { get; private set; }
     public int Speed => _speed;
+
+    public void ConnectToCell(ICell<IStored> myCell)
+    {
+        _cell = (ICell<EnemyModel>)myCell;
+    }
 
     public void Initialized(EnemyRouter parent)
     {
@@ -39,6 +45,7 @@ public class EnemyModel : MonoBehaviour, IStored
         transform.localPosition = Vector3.zero;
         transform.rotation = default;
         transform.localScale = _baseSize;
+        _cell.AddItem(this);
         gameObject.SetActive(false);
     }
 

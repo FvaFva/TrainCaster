@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class PoolService: MonoBehaviour
 {
     private Dictionary<GameObject, ICell<IStored>> _cells = new Dictionary<GameObject, ICell<IStored>>();
+
+    [Inject] private DiContainer _container;
 
     public void Put<StoredType>(GameObject prefab, Transform parent, int count) where StoredType : IStored
     {
@@ -47,9 +49,10 @@ public class PoolService: MonoBehaviour
 
     private StoredType InitClone<StoredType>(ICell<IStored> cell) where StoredType : IStored
     {
-        GameObject clone = Instantiate(cell.Prefab.gameObject, cell.Parent);
+        GameObject clone = _container.InstantiatePrefab(cell.Prefab.gameObject, cell.Parent);
         clone.SetActive(false);
         clone.TryGetComponent<StoredType>(out StoredType temp);
+        temp.ConnectToCell(cell);
         cell.AddItem(temp);
         return temp;
     }

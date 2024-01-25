@@ -6,6 +6,7 @@ public class MainSceneInjection : MonoInstaller
     [SerializeField] private Caster _caster;
     [SerializeField] private Train _train;
     [SerializeField] private SpellBar _spellBar;
+    [SerializeField] private PoolService _poolService;
 
     public override void InstallBindings()
     {
@@ -24,6 +25,9 @@ public class MainSceneInjection : MonoInstaller
         UserInput instance = Container.Instantiate<UserInput>();
         instance.Enable();
         Container.Bind<UserInput>().FromInstance(instance).AsSingle().NonLazy();
+        Container.Bind<PoolService>().FromInstance(_poolService).AsSingle().NonLazy();
+        Container.Bind<GameStates>().FromNew().AsSingle().NonLazy();
+
     }
 
     private void Inject()
