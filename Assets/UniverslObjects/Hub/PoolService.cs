@@ -5,8 +5,19 @@ using Zenject;
 public class PoolService: MonoBehaviour
 {
     private Dictionary<GameObject, ICell<IStored>> _cells = new Dictionary<GameObject, ICell<IStored>>();
+    private Transform _transform;
 
     [Inject] private DiContainer _container;
+
+    private void Awake()
+    {
+        _transform = transform;
+    }
+
+    public void Put<StoredType>(GameObject prefab, int count) where StoredType : IStored
+    {
+        Put<StoredType>(prefab, _transform, count);
+    }
 
     public void Put<StoredType>(GameObject prefab, Transform parent, int count) where StoredType : IStored
     {
@@ -25,7 +36,9 @@ public class PoolService: MonoBehaviour
             }
 
             for (int i = 0; i < count; i++)
-                InitClone<StoredType>(cell);
+            {
+                cell.AddItem(InitClone<StoredType>(cell));
+            }
         }
     }
 
@@ -50,10 +63,10 @@ public class PoolService: MonoBehaviour
     private StoredType InitClone<StoredType>(ICell<IStored> cell) where StoredType : IStored
     {
         GameObject clone = _container.InstantiatePrefab(cell.Prefab.gameObject, cell.Parent);
+        clone.name = $"{cell.Prefab.gameObject.name} ({typeof(StoredType)})";
         clone.SetActive(false);
         clone.TryGetComponent<StoredType>(out StoredType temp);
         temp.ConnectToCell(cell);
-        cell.AddItem(temp);
         return temp;
     }
 }

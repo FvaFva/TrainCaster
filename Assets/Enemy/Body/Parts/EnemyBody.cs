@@ -6,6 +6,8 @@ public class EnemyBody : MonoBehaviour, IEnemyPart
     [SerializeField] private ProgressBar _hitPointsView;
     private HitPoints _hitPoints;
 
+    public event Action<bool> Finished;
+
     private void Awake()
     {
         _hitPoints = new HitPoints(1, 0);
@@ -14,17 +16,16 @@ public class EnemyBody : MonoBehaviour, IEnemyPart
 
     private void OnEnable()
     {
-        _hitPoints.Die += TakeOff;
+        _hitPoints.Die += OnDie;
     }
 
     private void OnDisable()
     {
-        _hitPoints.Die -= TakeOff;
+        _hitPoints.Die -= OnDie;
     }
 
-    public event Action TakeOff;
 
-    public void ImplementModel(EnemyModel model)
+    public void ImplementModel(EnemyView model)
     {
         _hitPoints.SetNew(model.GetRandomizeHitPoints());
     }
@@ -32,5 +33,10 @@ public class EnemyBody : MonoBehaviour, IEnemyPart
     public void ApplyDamage(float damage)
     {
         _hitPoints.ApplyDamage(damage);
+    }
+
+    private void OnDie()
+    {
+        Finished?.Invoke(true);
     }
 }

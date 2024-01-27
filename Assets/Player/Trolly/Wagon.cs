@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using Zenject;
 
 public class Wagon:MonoBehaviour
 {
     [SerializeField] private Transform _castPoint;
     [SerializeField] private SpellBuild _test;
+
+    [Inject] private GameState _state;
 
     private Spell _spell;
     public Transform CastPoint => _castPoint;
@@ -11,7 +14,7 @@ public class Wagon:MonoBehaviour
 
     private void Awake()
     {
-        GameStates.Instance.EnterToLoadPool(_test);
+        _state.EnterToLoadPool(_test);
         _spell = new Spell(_test);
     }
 

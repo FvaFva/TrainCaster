@@ -66,12 +66,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 466498511751675537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6ec524bbeece7d48a96892978b50172, type: 3}
+  m_Script: {fileID: 11500000, guid: efd83f032534b554f905d77ca372adc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
   _hitPoints: 300
-  _hitPointsDice: 100
+  _hitPointsDice: 50
 --- !u!1 &466498511751675539
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +124,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ed14df0368fe53543907335c0e3902c6, type: 2}
+  - {fileID: 2100000, guid: d78d613e43ad9cd4aa3eb9bc669524ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -243,7 +243,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ed14df0368fe53543907335c0e3902c6, type: 2}
+  - {fileID: 2100000, guid: d78d613e43ad9cd4aa3eb9bc669524ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

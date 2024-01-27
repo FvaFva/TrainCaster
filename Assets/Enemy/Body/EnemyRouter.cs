@@ -4,14 +4,16 @@ using UnityEngine;
 
 [RequireComponent(typeof(EnemyMover))]
 [RequireComponent(typeof(EnemyBody))]
-public class EnemyRouter : MonoBehaviour
+public class EnemyRouter : MonoBehaviour, IStored
 {
-    private EnemyModel _model;
+    private EnemyView _model;
     private EnemyBody _body;
     private EnemyMover _mover;
     private List<IEnemyPart> _parts;
+    private ICell<EnemyRouter> _cell;
 
     public event Action PathFinished;
+    public event Action Died;
 
     private void Awake()
     {
@@ -30,13 +32,13 @@ public class EnemyRouter : MonoBehaviour
     private void OnEnable()
     {
         foreach (var part in _parts)
-            part.TakeOff += TakeOff;
+            part.Finished += TakeOff;
     }
 
     private void OnDisable()
     {
         foreach (var part in _parts)
-            part.TakeOff -= TakeOff;
+            part.Finished -= TakeOff;
     }
 
     public void StartPath(EnemyPath path)
@@ -49,22 +51,34 @@ public class EnemyRouter : MonoBehaviour
         _body.ApplyDamage(damage);
     }
 
-    public void InitModel(EnemyModel model)
+    public void Activate(EnemyView model)
     {
+        gameObject.SetActive(true);
         _model = model;
-        _model.Initialized(this);
+        _model.Activate(transform);
 
         foreach (var part in _parts)
-        {
             part.ImplementModel(model);
-        }
     }
 
-    private void TakeOff()
+    public void ConnectToCell(ICell<IStored> myCell)
     {
+        _cell = (ICell<EnemyRouter>)myCell;
+    }
+
+    private void TakeOff(bool isDie)
+    {
+        transform.rotation = Quaternion.identity;
+        transform.position = Vector3.zero;
         _model.TakeOff();
         _model = null;
-        PathFinished?.Invoke();
+        _cell.AddItem(this);
+
+        if (isDie)
+            Died?.Invoke();
+        else
+            PathFinished?.Invoke();
+
         gameObject.SetActive(false);
     }
 }

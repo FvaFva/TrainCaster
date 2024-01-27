@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
+using Zenject;
 
 public class GameStateMachine : MonoBehaviour
 {
     private BaseGameState _currentState;
     private Coroutine _currentAction;
 
+    [Inject] private GameState _gameState;
+
     private void Awake()
     {
-        EnterState(GameStates.Instance.GetState<StartGameState>());
+        EnterState(_gameState.GetState<StartGameState>());
     }
 
     private void EnterState(BaseGameState state)

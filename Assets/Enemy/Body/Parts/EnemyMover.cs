@@ -16,7 +16,7 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
     private Coroutine _movingToPoint;
     private Transform _transform;
 
-    public event Action TakeOff;
+    public event Action<bool> Finished;
 
     private void Awake()
     {
@@ -26,19 +26,24 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
 
     private void OnDisable()
     {
-        StopCoroutine(_movingToPoint);
-        _movingToPoint = null;
+        if (_movingToPoint != null)
+        {
+            StopCoroutine(_movingToPoint);
+            _movingToPoint = null;
+        }
     }
 
     public void StartPath(EnemyPath path)
     {
+        _transform.localPosition = Vector3.zero;
+        _transform.localRotation = Quaternion.identity;
         _path = path;
         _currentPathPoint = 0;
         IsPassFinished();
         _movingToPoint = StartCoroutine(MoveToPoint());
     }
 
-    public void ImplementModel(EnemyModel model)
+    public void ImplementModel(EnemyView model)
     {
         _speed = model.Speed;
     }
@@ -60,7 +65,7 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
             }
             else if(IsPassFinished())
             {
-                TakeOff?.Invoke();
+                Finished?.Invoke(false);
                 isHavePointToMove = false;
             }
 

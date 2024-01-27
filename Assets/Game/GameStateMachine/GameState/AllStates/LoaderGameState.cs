@@ -10,10 +10,14 @@ public class LoaderGameState : BaseGameState
 
     public void Add(IInitialized item)
     {
-        _initializedPool.Add(item);
 
         if(_initialized)
+        {
+            UnityEngine.Debug.Log($"Loaded extra: {item}");
             item.Init();
+        }
+        else
+            _initializedPool.Add(item);
     }
 
     protected override IEnumerable ActionSpecific()
@@ -21,6 +25,7 @@ public class LoaderGameState : BaseGameState
         foreach (var item in _initializedPool)
         {
             item.Init();
+            UnityEngine.Debug.Log($"Loaded in queue: {item}");
             yield return null;
         }
 

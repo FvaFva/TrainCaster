@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(Animator))]
-public class EnemyModel : MonoBehaviour, IStored
+public class EnemyView : MonoBehaviour, IStored
 {
     [SerializeField] private int _speed;
     [SerializeField] private int _hitPoints;
@@ -9,7 +9,7 @@ public class EnemyModel : MonoBehaviour, IStored
 
     private Transform _baseParent;
     private Vector3 _baseSize;
-    private ICell<EnemyModel> _cell;
+    private ICell<EnemyView> _cell;
 
     private void Awake()
     {
@@ -25,25 +25,20 @@ public class EnemyModel : MonoBehaviour, IStored
 
     public void ConnectToCell(ICell<IStored> myCell)
     {
-        _cell = (ICell<EnemyModel>)myCell;
+        _cell = (ICell<EnemyView>)myCell;
     }
 
-    public void Initialized(EnemyRouter parent)
+    public void Activate(Transform parent)
     {
-        transform.parent = parent.transform;
+        transform.parent = parent;
         transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
         gameObject.SetActive(true);
     }
 
     public void TakeOff()
     {
-        if(_baseParent != null)
-            transform.parent = _baseParent;
-        else 
-            transform.parent = null;
-
-        transform.localPosition = Vector3.zero;
-        transform.rotation = default;
+        transform.parent = _baseParent;
         transform.localScale = _baseSize;
         _cell.AddItem(this);
         gameObject.SetActive(false);
@@ -59,14 +54,7 @@ public class EnemyModel : MonoBehaviour, IStored
         else
             hitPoints -= hitPointsDiced;
 
-        ScaleSizeToHitPoints(hitPoints);
+        transform.localScale *= (float)_hitPoints / (float)hitPoints;
         return hitPoints;
-    }
-
-    private void ScaleSizeToHitPoints(int hitPoints)
-    {
-        float sizeCoefficient = (float)_hitPoints / (float)hitPoints;
-        Vector3 size = _baseSize * sizeCoefficient;
-        transform.localScale = size;
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class GameStates
+public class GameState
 {
     private Dictionary<Type, BaseGameState> _states = new Dictionary<Type, BaseGameState>();
     private LoaderGameState _loader;
 
-    public GameStates() 
+    public GameState() 
     {
         _states.Add(typeof(FinishGameState), new FinishGameState());
         _states.Add(typeof(MainGameState), new MainGameState(_states[typeof(FinishGameState)]));
