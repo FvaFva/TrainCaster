@@ -52,12 +52,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _Fill: 0.01
-    - _Offset: 0.7
+    - _Offset: 0.75
     - _Power: 10.83
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ScrollSpeed: 0.05
-    - _VisionRadius: 4.94
+    - _ScrollSpeed: 0.1
+    - _VisionRadius: 6.11
     m_Colors:
-    - _Emission: {r: 0.1882353, g: 4.2574687, b: 3.9913769, a: 0}
+    - _Emission: {r: 4.257468, g: 0.25405073, b: 0.20061357, a: 0}
   m_BuildTextureStacks: []

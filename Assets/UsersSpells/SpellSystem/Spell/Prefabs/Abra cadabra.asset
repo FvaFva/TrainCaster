@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a96e5cebb92a62b49b7b63884f816b91, type: 3}
   m_Name: Abra cadabra
   m_EditorClassIdentifier: 
-  _name: Point
+  _header: 
   _icon: {fileID: 1388625261, guid: 182becd30bd3ae64ea5448bb2604c5fc, type: 3}
   _targetSelector: 0
   _effect: {fileID: 11400000, guid: 7aa4acbd46dad184b9f854a1c4b3d9ab, type: 2}
   _actions:
+  - {fileID: 11400000, guid: 0c3335c3e211c334f9b8583df098e3e0, type: 2}
   - {fileID: 11400000, guid: 0c3335c3e211c334f9b8583df098e3e0, type: 2}

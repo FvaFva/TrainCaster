@@ -68,9 +68,9 @@ public class EnemyRouter : MonoBehaviour, IStored
 
     private void TakeOff(bool isDie)
     {
+        _model.TakeOff();
         transform.rotation = Quaternion.identity;
         transform.position = Vector3.zero;
-        _model.TakeOff();
         _model = null;
         _cell.AddItem(this);
 

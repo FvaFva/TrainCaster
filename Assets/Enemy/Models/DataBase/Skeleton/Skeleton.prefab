@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 466498511751570097}
   - component: {fileID: 466498511759052063}
   - component: {fileID: 8858232334210994234}
+  - component: {fileID: 2136482821821416014}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Untagged
@@ -72,6 +73,22 @@ MonoBehaviour:
   _speed: 3
   _hitPoints: 300
   _hitPointsDice: 50
+  _dissolver: {fileID: 2136482821821416014}
+--- !u!114 &2136482821821416014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466498511751675537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b3888018eab0c4698e655dbe2bc72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderers:
+  - {fileID: 466498511763174367}
+  - {fileID: 466498511763174365}
 --- !u!1 &466498511751675539
 GameObject:
   m_ObjectHideFlags: 0

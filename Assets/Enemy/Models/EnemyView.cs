@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof(Animator))]
@@ -6,6 +7,7 @@ public class EnemyView : MonoBehaviour, IStored
     [SerializeField] private int _speed;
     [SerializeField] private int _hitPoints;
     [SerializeField] private int _hitPointsDice;
+    [SerializeField] private Dissolver _dissolver;
 
     private Transform _baseParent;
     private Vector3 _baseSize;
@@ -15,9 +17,19 @@ public class EnemyView : MonoBehaviour, IStored
     {
         TryGetComponent<Animator>(out Animator animator);
         MainAnimator = animator;
-        gameObject.SetActive(false);
         _baseParent = transform.parent;
         _baseSize = transform.localScale;
+        gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        _dissolver.Dissolved += OnDissolveFinished;
+    }
+
+    private void OnDisable()
+    {
+        _dissolver.Dissolved -= OnDissolveFinished;
     }
 
     public Animator MainAnimator { get; private set; }
@@ -34,14 +46,15 @@ public class EnemyView : MonoBehaviour, IStored
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         gameObject.SetActive(true);
+        _dissolver.Show(1f);
     }
 
     public void TakeOff()
     {
         transform.parent = _baseParent;
         transform.localScale = _baseSize;
-        _cell.AddItem(this);
-        gameObject.SetActive(false);
+        MainAnimator.SetBool("Win", true);
+        _dissolver.Hide(2f);
     }
 
     public int GetRandomizeHitPoints()
@@ -56,5 +69,15 @@ public class EnemyView : MonoBehaviour, IStored
 
         transform.localScale *= (float)_hitPoints / (float)hitPoints;
         return hitPoints;
+    }
+
+    private void OnDissolveFinished(float dissolve)
+    {
+        if(dissolve == 1)
+        {
+            _cell.AddItem(this);
+            MainAnimator.SetBool("Win", false);
+            gameObject.SetActive(false);
+        }
     }
 }
