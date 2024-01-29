@@ -1,12 +1,13 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Base : MonoBehaviour
 {
-    [SerializeField] private List<EnemyFactory> _factories = new List<EnemyFactory>();
     [SerializeField] private float _hitPointsMax;
     [SerializeField] private ProgressBar _hitPointsBar;
+
+    [Inject] private ActiveEnemies _enemies;
 
     private HitPoints _hitPoints = new HitPoints(0,0);
 
@@ -21,27 +22,20 @@ public class Base : MonoBehaviour
 
     private void OnDisable()
     {
-        foreach (EnemyFactory factory in _factories)
-        {
-            factory.EnemyFinishPath -= ApplyDamage;
-        }
-
+        _enemies.Deleted -= OnEnemyDeleted;
         _hitPoints.Die -= OnDie;
     }
 
     private void OnEnable()
     {
-        foreach (EnemyFactory factory in _factories)
-        {
-            factory.EnemyFinishPath += ApplyDamage;
-        }
-
+        _enemies.Deleted += OnEnemyDeleted;
         _hitPoints.Die += OnDie;
     }
 
-    private void ApplyDamage()
+    private void OnEnemyDeleted(EnemyRouter enemy, EnemyDeleteStatus status)
     {
-        _hitPoints.ApplyDamage(1);
+        if(status == EnemyDeleteStatus.FinishPath)
+            _hitPoints.ApplyDamage(1);
     }
 
     private void OnDie()

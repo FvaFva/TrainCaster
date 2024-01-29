@@ -2,6 +2,6 @@
 
 public interface IEnemyPart
 {
-    public event Action<bool> Finished;
+    public event Action<EnemyDeleteStatus> Completed;
     public void ImplementModel(EnemyView model);
 }

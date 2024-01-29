@@ -14,25 +14,7 @@ public class EnemyFactory : MonoBehaviour, IInitialized
     [Inject] private PoolService _poolService;
     [Inject] private GameState _game;
 
-    private List<EnemyRouter> _enemies = new List<EnemyRouter>();
-
-    public event Action EnemyFinishPath;
-
-    private void OnEnable()
-    {
-        foreach (EnemyRouter enemy in _enemies)
-        {
-            enemy.PathFinished += OnEnemyFinish;
-        }
-    }
-
-    private void OnDisable()
-    {
-        foreach (EnemyRouter enemy in _enemies)
-        {
-            enemy.PathFinished -= OnEnemyFinish;
-        }
-    }
+    public event Action<EnemyRouter> Created;
 
     private void Awake()
     {
@@ -56,12 +38,6 @@ public class EnemyFactory : MonoBehaviour, IInitialized
         EnemyRouter enemy = _poolService.Get<EnemyRouter>(_enemy.gameObject);
         enemy.Activate(model);
         enemy.StartPath(_path);
-        enemy.PathFinished += OnEnemyFinish;
-        _enemies.Add(enemy);
-    }
-
-    private void OnEnemyFinish()
-    {
-        EnemyFinishPath?.Invoke();
+        Created?.Invoke(enemy);
     }
 }

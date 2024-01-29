@@ -9,11 +9,11 @@ public class EnemyRouter : MonoBehaviour, IStored
     private EnemyView _model;
     private EnemyBody _body;
     private EnemyMover _mover;
+
     private List<IEnemyPart> _parts;
     private ICell<EnemyRouter> _cell;
 
-    public event Action PathFinished;
-    public event Action Died;
+    public event Action<EnemyRouter, EnemyDeleteStatus> Deleted;
 
     private void Awake()
     {
@@ -32,13 +32,13 @@ public class EnemyRouter : MonoBehaviour, IStored
     private void OnEnable()
     {
         foreach (var part in _parts)
-            part.Finished += TakeOff;
+            part.Completed += Delete;
     }
 
     private void OnDisable()
     {
         foreach (var part in _parts)
-            part.Finished -= TakeOff;
+            part.Completed -= Delete;
     }
 
     public void StartPath(EnemyPath path)
@@ -66,7 +66,7 @@ public class EnemyRouter : MonoBehaviour, IStored
         _cell = (ICell<EnemyRouter>)myCell;
     }
 
-    private void TakeOff(bool isDie)
+    private void Delete(EnemyDeleteStatus status)
     {
         _model.TakeOff();
         transform.rotation = Quaternion.identity;
@@ -74,10 +74,7 @@ public class EnemyRouter : MonoBehaviour, IStored
         _model = null;
         _cell.AddItem(this);
 
-        if (isDie)
-            Died?.Invoke();
-        else
-            PathFinished?.Invoke();
+        Deleted?.Invoke(this, status);
 
         gameObject.SetActive(false);
     }

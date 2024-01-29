@@ -9,6 +9,7 @@ public class MainSceneInjection : MonoInstaller
     [SerializeField] private SpellBar _spellBar;
     [SerializeField] private PoolService _poolService;
     [SerializeField] private EnemyFactory _enemyFactory;
+    [SerializeField] private Base _base;
     [SerializeField] private GameStateMachine _gameStateMachine;
     [SerializeField] private List<BaseSpellEffect> _spellEffects;
 
@@ -31,7 +32,7 @@ public class MainSceneInjection : MonoInstaller
         Container.Bind<UserInput>().FromInstance(instance).AsSingle().NonLazy();
         Container.Bind<PoolService>().FromInstance(_poolService).AsSingle().NonLazy();
         Container.Bind<GameState>().FromNew().AsSingle().NonLazy();
-
+        Container.Bind<ActiveEnemies>().FromInstance(new ActiveEnemies(_enemyFactory)).AsSingle().NonLazy();
     }
 
     private void Inject()
@@ -40,6 +41,7 @@ public class MainSceneInjection : MonoInstaller
         Container.InjectGameObject(_train.gameObject);
         Container.InjectGameObject(_enemyFactory.gameObject);
         Container.InjectGameObject(_gameStateMachine.gameObject);
+        Container.InjectGameObject(_base.gameObject);
 
         foreach (BaseSpellEffect effect in _spellEffects)
             Container.Inject(effect);

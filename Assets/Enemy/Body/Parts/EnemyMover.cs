@@ -16,7 +16,7 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
     private Coroutine _movingToPoint;
     private Transform _transform;
 
-    public event Action<bool> Finished;
+    public event Action<EnemyDeleteStatus> Completed;
 
     private void Awake()
     {
@@ -65,7 +65,7 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
             }
             else if(IsPassFinished())
             {
-                Finished?.Invoke(false);
+                Completed?.Invoke(EnemyDeleteStatus.FinishPath);
                 isHavePointToMove = false;
             }
 

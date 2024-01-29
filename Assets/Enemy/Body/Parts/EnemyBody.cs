@@ -6,7 +6,7 @@ public class EnemyBody : MonoBehaviour, IEnemyPart
     [SerializeField] private ProgressBar _hitPointsView;
     private HitPoints _hitPoints;
 
-    public event Action<bool> Finished;
+    public event Action<EnemyDeleteStatus> Completed;
 
     private void Awake()
     {
@@ -24,7 +24,6 @@ public class EnemyBody : MonoBehaviour, IEnemyPart
         _hitPoints.Die -= OnDie;
     }
 
-
     public void ImplementModel(EnemyView model)
     {
         _hitPoints.SetNew(model.GetRandomizeHitPoints());
@@ -37,6 +36,6 @@ public class EnemyBody : MonoBehaviour, IEnemyPart
 
     private void OnDie()
     {
-        Finished?.Invoke(true);
+        Completed?.Invoke(EnemyDeleteStatus.Die);
     }
 }
