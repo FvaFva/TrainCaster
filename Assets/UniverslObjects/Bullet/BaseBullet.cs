@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseBullet: MonoBehaviour, IStored
 {
     private ICell<BaseBullet> _cell;
 
-    public abstract void Shot(Vector3 position, Vector3 direction, Action<IEnumerable<CastTarget>> onCrush);
+    public abstract void Shot(Vector3 position, Vector3 direction, Action<CastTarget> onCrush);
 
-    protected Action<IEnumerable<CastTarget>> _onCrush;
+    protected Action<CastTarget> _onCrush;
     protected Type TargetType;
 
     private void OnTriggerEnter(Collider collision)
@@ -22,7 +21,7 @@ public abstract class BaseBullet: MonoBehaviour, IStored
 
     protected void Finish(CastTarget target)
     {
-        _onCrush?.Invoke(new CastTarget[] {target});
+        _onCrush?.Invoke(target);
         _cell.AddItem(this);
         gameObject.SetActive(false);
     }

@@ -33,12 +33,12 @@ public struct CastTarget
         IsCorrect = isCorrect;
     }
 
-    public CastTarget(EnemyRouter enemy, bool isCorrect)
+    public void ApplyEnemy(EnemyRouter enemy)
     {
-        _enemies = new List<EnemyRouter>() { enemy };
-        Enemy = enemy;
-        Point = Enemy.transform.position;
-        IsCorrect = isCorrect;
+        if(_enemies.Contains(enemy))
+            return;
+
+        _enemies.Add(Enemy);
     }
 
     public Vector3 Point {  get; private set; }

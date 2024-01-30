@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Spell
 {
@@ -15,14 +16,11 @@ public class Spell
         _build.Effect.Apply(castPoint, target, EffectFinished);
     }
 
-    private void EffectFinished(IEnumerable<CastTarget> castTarget)
+    private void EffectFinished(CastTarget castTarget)
     {
-        foreach (CastTarget target in castTarget)
+        foreach (BaseSpellAction action in _build.Actions)
         {
-            foreach(BaseSpellAction action in _build.Actions)
-            {
-                action.Apply(target);
-            }
+            action.Apply(castTarget);
         }
     }
 }

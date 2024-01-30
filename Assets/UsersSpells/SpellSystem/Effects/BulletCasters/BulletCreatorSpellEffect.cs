@@ -11,7 +11,7 @@ public class BulletCreatorSpellEffect : BaseSpellEffect
 
     [Inject] private PoolService _poolService;
 
-    public override void Apply(Vector3 castPoint, CastTarget target, Action<IEnumerable<CastTarget>> onEffectFinish)
+    public override void Apply(Vector3 castPoint, CastTarget target, Action<CastTarget> onEffectFinish)
     {
         BaseBullet bullet = _poolService.Get<BaseBullet>(_bullet.gameObject);
         Vector3 direction = target.Point - castPoint;

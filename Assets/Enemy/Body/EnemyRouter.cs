@@ -9,11 +9,13 @@ public class EnemyRouter : MonoBehaviour, IStored
     private EnemyView _model;
     private EnemyBody _body;
     private EnemyMover _mover;
+    private Transform _transform;
 
     private List<IEnemyPart> _parts;
     private ICell<EnemyRouter> _cell;
 
     public event Action<EnemyRouter, EnemyDeleteStatus> Deleted;
+    public Vector3 Position => _transform.position;
 
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class EnemyRouter : MonoBehaviour, IStored
         _body = tempBody;
 
         _parts = new List<IEnemyPart>() { _mover, _body };
+        _transform = transform;
     }
 
     private void OnEnable()

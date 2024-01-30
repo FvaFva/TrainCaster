@@ -10,6 +10,7 @@ public abstract class BaseSelector : MonoBehaviour
 
     private Color _goodColor;
     private Camera _camera;
+    private Transform _transform;
 
     protected bool IsCorrect;
     protected bool IsMoving;
@@ -20,6 +21,7 @@ public abstract class BaseSelector : MonoBehaviour
     {
         _goodColor = _render.material.color;
         _camera = Camera.main;
+        _transform = transform;
     }
 
     private void Update()
@@ -27,7 +29,7 @@ public abstract class BaseSelector : MonoBehaviour
         ProcessSelection();
 
         if (IsMoving)
-            transform.position = PointToMove;
+            _transform.position = PointToMove;
 
         if (IsCorrect)
             _render.material.color = _goodColor;

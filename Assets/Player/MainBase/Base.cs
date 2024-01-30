@@ -9,7 +9,7 @@ public class Base : MonoBehaviour
 
     [Inject] private ActiveEnemies _enemies;
 
-    private HitPoints _hitPoints = new HitPoints(0,0);
+    private HitPoints _hitPoints;
 
     public event Action Destroyed;
 

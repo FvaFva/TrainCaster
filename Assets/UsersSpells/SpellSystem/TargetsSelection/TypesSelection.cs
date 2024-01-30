@@ -2,5 +2,8 @@ public enum TypesSelection
 {
     Point,
     Enemy,
-    Vector
+    Vector,
+    Random,
+    All,
+    Radius
 }

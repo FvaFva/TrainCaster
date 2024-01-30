@@ -7,7 +7,7 @@ class GetDamageSpellAction : BaseSpellAction
 
     public override void Apply(CastTarget target)
     {
-        if (target.Enemy != null)
-            target.Enemy.ApplyDamage(_damage);
+        foreach(EnemyRouter enemy in target.Enemies)
+            enemy.ApplyDamage(_damage);
     }
 }

@@ -10,7 +10,7 @@ public class LinerBullet : BaseBullet
 
     private Coroutine _fly;
 
-    public override void Shot(Vector3 position, Vector3 direction, Action<IEnumerable<CastTarget>> onCrush)
+    public override void Shot(Vector3 position, Vector3 direction, Action<CastTarget> onCrush)
     {
         transform.position = position;
         _onCrush = onCrush;
