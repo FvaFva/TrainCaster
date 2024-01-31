@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+﻿using UnityEngine;
 
 public class Spell
 {
@@ -13,7 +11,7 @@ public class Spell
 
     public void Cast(Vector3 castPoint, CastTarget target)
     {
-        _build.Effect.Apply(castPoint, target, EffectFinished);
+        _build.Effect.Apply(castPoint, _build.EnemySelector.ProcessCastTarget(target), EffectFinished);
     }
 
     private void EffectFinished(CastTarget castTarget)

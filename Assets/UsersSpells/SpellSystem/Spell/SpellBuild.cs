@@ -1,15 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "Abra cadabra", menuName = "Spells/Spell", order = 51)]
+[CreateAssetMenu(fileName = "NewSpell", menuName = "Spells/Spell", order = 51)]
 public class SpellBuild : ScriptableObject, IInitialized
 {
     [Header("Ui")]
     [SerializeField] private string _header;
     [SerializeField] private Sprite _icon;
-    [Header("Impact")]
+    [Header("Select")]
     [SerializeField] private TypesSelection _targetSelector;
+    [SerializeField] private BaseAdditionalEnemySelector _enemySelector;
+    [SerializeField] private float _radius;
+    [SerializeField] private int _count;
+    [Header("Impact")]
     [SerializeField] private BaseSpellEffect _effect;
     [SerializeField] private List<BaseSpellAction> _actions;
 
@@ -18,6 +21,8 @@ public class SpellBuild : ScriptableObject, IInitialized
     public IEnumerable<BaseSpellAction> Actions => _actions;
     public Sprite Icon => _icon;
     public string Header => _header;
+    public BaseAdditionalEnemySelector EnemySelector => _enemySelector;
+    public int Count => _count;
 
     public void Init()
     {
