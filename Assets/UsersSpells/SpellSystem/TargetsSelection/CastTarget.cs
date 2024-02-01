@@ -44,5 +44,5 @@ public struct CastTarget
     public Vector3 Point {  get; private set; }
     public EnemyRouter Enemy { get; private set; }
     public bool IsCorrect { get; private set; }
-    public IEnumerable Enemies => _enemies;
+    public IEnumerable<EnemyRouter> Enemies => _enemies;
 }

@@ -23,6 +23,7 @@ public class SpellBuild : ScriptableObject, IInitialized
     public string Header => _header;
     public BaseAdditionalEnemySelector EnemySelector => _enemySelector;
     public int Count => _count;
+    public float Radius => _radius;
 
     public void Init()
     {

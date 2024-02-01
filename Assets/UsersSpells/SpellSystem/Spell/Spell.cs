@@ -11,7 +11,7 @@ public class Spell
 
     public void Cast(Vector3 castPoint, CastTarget target)
     {
-        _build.Effect.Apply(castPoint, _build.EnemySelector.ProcessCastTarget(target), EffectFinished);
+        _build.Effect.Apply(castPoint, _build.EnemySelector.ProcessCastTarget(target, _build.Count, _build.Radius), EffectFinished);
     }
 
     private void EffectFinished(CastTarget castTarget)
