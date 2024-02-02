@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd83f032534b554f905d77ca372adc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _speed: 3
   _hitPoints: 300
   _hitPointsDice: 50
   _dissolver: {fileID: 2136482821821416014}

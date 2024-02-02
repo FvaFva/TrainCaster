@@ -1,37 +1,33 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LinerBullet : BaseBullet
 {
-    [SerializeField] private float _speed;
-    [SerializeField] private int _distance;
+    [SerializeField] private int _maxDistance;
 
-    private Coroutine _fly;
+    private Vector3 _direction;
+    private float _currentDistance;
 
-    public override void Shot(Vector3 position, Vector3 direction, Action<CastTarget> onCrush)
+    protected override Vector3 CalculateNextStep(float deltaTime)
     {
-        transform.position = position;
-        _onCrush = onCrush;
-        gameObject.SetActive(true);
-
-        if (_fly != null)
-            StopCoroutine(_fly);
-
-        _fly = StartCoroutine(Flying(direction));
+        _currentDistance += deltaTime * Speed;
+        return Speed * deltaTime * _direction;
     }
 
-    private IEnumerator Flying(Vector3 direction)
+    protected override bool IsCanFly()
     {
-        yield return null;
+        return _currentDistance < _maxDistance;
+    }
 
-        for(float  i = 0; i < _distance; i += Time.deltaTime * _speed)
-        {
-            transform.position += _speed * Time.deltaTime * direction;
-            yield return null;
-        }
+    protected override bool IsItCorrectTarget(GameObject stoper)
+    {
+        return true;
+    }
 
-        Finish(new CastTarget(transform.position, false));
+    protected override void ShotImpact(Vector3 position, CastTarget target)
+    {
+        _currentDistance = 0;
+        Vector3 direction = target.Point - position;
+        direction.y = 0;
+        _direction = direction.normalized;
     }
 }

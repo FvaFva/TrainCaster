@@ -38,7 +38,7 @@ public struct CastTarget
         if(_enemies.Contains(enemy))
             return;
 
-        _enemies.Add(Enemy);
+        _enemies.Add(enemy);
     }
 
     public Vector3 Point {  get; private set; }

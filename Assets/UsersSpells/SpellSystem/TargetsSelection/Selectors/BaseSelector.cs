@@ -45,6 +45,7 @@ public abstract class BaseSelector : MonoBehaviour
     public void Starting()
     {
         gameObject.SetActive(true);
+        IsMoving = true;
     }
 
     public CastTarget Finishing()

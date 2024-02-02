@@ -9,6 +9,7 @@ public class Caster : MonoBehaviour
     [SerializeField] EnemySelector _enemySelector;
     [SerializeField] PointSelector _pointSelector;
     [SerializeField] StaticSelector _staticSelector;
+    [SerializeField] NonSelector _nonSelector;
     [SerializeField] SpellBar _spellBar;
 
     [Inject] private UserInput _input;
@@ -23,7 +24,8 @@ public class Caster : MonoBehaviour
         {
             { TypesSelection.Enemy, _enemySelector },
             { TypesSelection.Point, _pointSelector },
-            { TypesSelection.Vector, _staticSelector }
+            { TypesSelection.Vector, _staticSelector },
+            { TypesSelection.Non, _nonSelector }
         };
 
         _input.Cast.CastSkillA.performed += StartSelectTarget;

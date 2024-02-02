@@ -12,6 +12,7 @@ public class MainSceneInjection : MonoInstaller
     [SerializeField] private Base _base;
     [SerializeField] private GameStateMachine _gameStateMachine;
     [SerializeField] private List<BaseSpellEffect> _spellEffects;
+    [SerializeField] private List<BaseAdditionalEnemySelector> _additionalSelectors;
 
     public override void InstallBindings()
     {
@@ -45,5 +46,8 @@ public class MainSceneInjection : MonoInstaller
 
         foreach (BaseSpellEffect effect in _spellEffects)
             Container.Inject(effect);
+
+        foreach (BaseAdditionalEnemySelector additionalSelector in _additionalSelectors)
+            Container.Inject(additionalSelector);
     }
 }
