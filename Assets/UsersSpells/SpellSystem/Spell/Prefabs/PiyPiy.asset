@@ -18,6 +18,6 @@ MonoBehaviour:
   _enemySelector: {fileID: 11400000, guid: 84c01d7fa6985be4a902f41bc7693239, type: 2}
   _radius: 2
   _count: 2
-  _effect: {fileID: 11400000, guid: 0b659391f482b2445b9982186deea866, type: 2}
+  _effect: {fileID: 11400000, guid: b978ddc5e25558a439ed11d1b768ba71, type: 2}
   _actions:
   - {fileID: 11400000, guid: 0c3335c3e211c334f9b8583df098e3e0, type: 2}

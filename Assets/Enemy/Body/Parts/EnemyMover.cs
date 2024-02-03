@@ -10,6 +10,7 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
 
     private Vector3 _targetPoint;
     private float _speed;
+    private float _speedCoefficient;
     private int _currentPathPoint;
     private EnemyPath _path;
     private WaitForSeconds _sleep;
@@ -43,6 +44,11 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
         _movingToPoint = StartCoroutine(MoveToPoint());
     }
 
+    public void SetAdditionalSpeedChange(float speed)
+    {
+        _speedCoefficient = Mathf.Clamp01(speed);
+    }
+
     public void ImplementModel(EnemyView model)
     {
         _speed = model.Speed;
@@ -61,7 +67,7 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
             if (targetVector.sqrMagnitude > SqrMagnitudeMinimumToTarget)
             {
                 _transform.rotation = Quaternion.Slerp(_transform.rotation, Quaternion.LookRotation(targetVector), Time.deltaTime * RotateSpeed);
-                _transform.position += (targetVector.normalized * _speed) * Time.deltaTime;
+                _transform.position += (targetVector.normalized * (_speed * _speedCoefficient)) * Time.deltaTime;
             }
             else if(IsPassFinished())
             {

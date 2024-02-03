@@ -10,6 +10,7 @@ public class EnemyRouter : MonoBehaviour, IStored
     private EnemyBody _body;
     private EnemyMover _mover;
     private Transform _transform;
+    private EnemyStatusBar _statusBar;
 
     private List<IEnemyPart> _parts;
     private ICell<EnemyRouter> _cell;
@@ -30,6 +31,7 @@ public class EnemyRouter : MonoBehaviour, IStored
 
         _parts = new List<IEnemyPart>() { _mover, _body };
         _transform = transform;
+        _statusBar = new EnemyStatusBar();
     }
 
     private void OnEnable()
@@ -44,6 +46,11 @@ public class EnemyRouter : MonoBehaviour, IStored
             part.Completed -= Delete;
     }
 
+    private void Update()
+    {
+        _statusBar.UpdateChanges(Time.deltaTime);
+    }
+
     public void StartPath(EnemyPath path)
     {
         _mover.StartPath(path);
@@ -52,6 +59,11 @@ public class EnemyRouter : MonoBehaviour, IStored
     public void ApplyDamage(float  damage)
     {
         _body.ApplyDamage(damage);
+    }
+
+    public void ApplyStatus(EnemyStatusParameters status)
+    {
+        _statusBar.ApplyStatus(status);
     }
 
     public void Activate(EnemyView model)
@@ -76,9 +88,7 @@ public class EnemyRouter : MonoBehaviour, IStored
         transform.position = Vector3.zero;
         _model = null;
         _cell.AddItem(this);
-
         Deleted?.Invoke(this, status);
-
         gameObject.SetActive(false);
     }
 }

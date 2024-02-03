@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public struct CastTarget
@@ -14,7 +15,7 @@ public struct CastTarget
         {
             Enemy = temp;
             _enemies.Add(Enemy);
-            Point = Enemy.transform.position;
+            Point = Enemy.Position;
         }
         else
         {
@@ -30,6 +31,14 @@ public struct CastTarget
         _enemies = new List<EnemyRouter>();
         Point = point;
         Enemy = null;
+        IsCorrect = isCorrect;
+    }
+
+    public CastTarget(EnemyRouter enemy, bool isCorrect)
+    {
+        _enemies = new List<EnemyRouter>();
+        Point = enemy.Position;
+        Enemy = enemy;
         IsCorrect = isCorrect;
     }
 
