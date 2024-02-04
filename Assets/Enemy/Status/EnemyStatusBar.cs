@@ -31,7 +31,7 @@ public class EnemyStatusBar
         {
             _enemyStatuses[i].Tick(dt);
 
-            if (_enemyStatuses[i].CurrentTime > 0)
+            if (_enemyStatuses[i].TimeLeft > 0)
             {
                 newStatus += _enemyStatuses[i].Changing;
             }
@@ -43,8 +43,9 @@ public class EnemyStatusBar
         }
 
         if (newStatus.IsSameStaticElements(SummaryChanges) == false)
+        {
+            SummaryChanges = newStatus;
             StaticChanged?.Invoke();
-
-        SummaryChanges = newStatus;
+        }
     }
 }

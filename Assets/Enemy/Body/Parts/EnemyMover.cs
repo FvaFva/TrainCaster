@@ -10,7 +10,7 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
 
     private Vector3 _targetPoint;
     private float _speed;
-    private float _speedCoefficient;
+    private float _speedCoefficient = 1;
     private int _currentPathPoint;
     private EnemyPath _path;
     private WaitForSeconds _sleep;
@@ -44,9 +44,9 @@ public class EnemyMover : MonoBehaviour, IEnemyPart
         _movingToPoint = StartCoroutine(MoveToPoint());
     }
 
-    public void SetAdditionalSpeedChange(float speed)
+    public void ImplementStatus(EnemyStatusParameters status)
     {
-        _speedCoefficient = Mathf.Clamp01(speed);
+        _speedCoefficient = 1 - Mathf.Clamp(status.MoveSpeed, 0,7);
     }
 
     public void ImplementModel(EnemyView model)

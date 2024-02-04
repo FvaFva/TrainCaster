@@ -1,50 +1,47 @@
 ﻿using System;
-
 public class EnemyStatus
 {
-    private const float StartTimer = 0.5f;
+    private const float HealthChangeInterval = 0.5f;
 
-    private float _timer = 0;
-    private float _hitPointsTick;
-    private Action<float> _hitPointsUpdate;
+    private float _healthChangeTimer = 0;
+    private float _fixDamagePerInterval;
+    private Action<float> _hitMethod;
 
     public EnemyStatus(EnemyStatusParameters changing)
     {
-        Lifetime = changing.Duration;
+        Duration = changing.Duration;
         Changing = changing;
-        CurrentTime = changing.Duration;
-        _hitPointsTick = Changing.HitPoints / StartTimer;
+        TimeLeft = changing.Duration;
+        _fixDamagePerInterval = Changing.FixDamagePerSeconds * HealthChangeInterval;
 
-        if (_hitPointsTick != 0)
-            _hitPointsUpdate = HealthUpdate;
+        if (_fixDamagePerInterval != 0)
+            _hitMethod = UpdateHealthChange;
         else
-            _hitPointsUpdate = NonHealth;
+            _hitMethod = NonHealthChange;
     }
 
     public EnemyStatusParameters Changing {  get; private set; }
 
-    public float Lifetime { get; private set; }
-    public float CurrentTime { get; private set; }
+    public float Duration { get; private set; }
+    public float TimeLeft { get; private set; }
     public event Action<float> HitPointsTick;
 
     public void Tick(float dt)
     {
-        CurrentTime -= dt;
-        _hitPointsUpdate.Invoke(dt);
+        TimeLeft -= dt;
+        _hitMethod.Invoke(dt);
     }
 
-    private void HealthUpdate(float dt)
+    private void UpdateHealthChange(float dt)
     {
-        if(_timer <= 0)
+        _healthChangeTimer -= dt;
+
+        if (_healthChangeTimer <= 0)
         {
-            _timer = StartTimer;
-            HitPointsTick?.Invoke(_hitPointsTick * StartTimer);
-        }
-        else
-        {
-            _timer -= dt;
+            _healthChangeTimer = HealthChangeInterval;
+            HitPointsTick?.Invoke(_fixDamagePerInterval);
         }
     }
 
-    private void NonHealth(float dt) { }
+    private void NonHealthChange(float dt) { }
 }

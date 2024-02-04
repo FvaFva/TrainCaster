@@ -11,8 +11,15 @@ public class BulletCreatorSpellEffect : BaseSpellEffect
 
     public override void Apply(Vector3 castPoint, CastTarget target, Action<CastTarget> onEffectFinish)
     {
-        foreach (EnemyRouter enemy in target.Enemies)
-            InitBullet(castPoint, new CastTarget(enemy, target.IsCorrect), onEffectFinish);
+        if (target.Enemy == null)
+        {
+            InitBullet(castPoint, target, onEffectFinish);
+        }
+        else
+        {
+            foreach (EnemyRouter enemy in target.Enemies)
+                InitBullet(castPoint, new CastTarget(enemy, target.IsCorrect), onEffectFinish);
+        }
     }
 
     public override void InitResources()

@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
+  _armor: 10
   _hitPoints: 300
   _hitPointsDice: 50
   _dissolver: {fileID: 2136482821821416014}

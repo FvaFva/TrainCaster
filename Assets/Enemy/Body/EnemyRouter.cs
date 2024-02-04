@@ -38,12 +38,18 @@ public class EnemyRouter : MonoBehaviour, IStored
     {
         foreach (var part in _parts)
             part.Completed += Delete;
+
+        _statusBar.StaticChanged += OnStatusStaticChange;
+        _statusBar.HitPointsTick += ApplyDamage;
     }
 
     private void OnDisable()
     {
         foreach (var part in _parts)
             part.Completed -= Delete;
+
+        _statusBar.StaticChanged -= OnStatusStaticChange;
+        _statusBar.HitPointsTick -= ApplyDamage;
     }
 
     private void Update()
@@ -90,5 +96,13 @@ public class EnemyRouter : MonoBehaviour, IStored
         _cell.AddItem(this);
         Deleted?.Invoke(this, status);
         gameObject.SetActive(false);
+    }
+
+    private void OnStatusStaticChange()
+    {
+        foreach (var part in _parts)
+            part.ImplementStatus(_statusBar.SummaryChanges);
+
+        _model.ChangeAnimationSpeed(_statusBar.SummaryChanges.MoveSpeed);
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Spells/Spell", order = 51)]
-public class SpellBuild : ScriptableObject, IInitialized
+public class SpellBuild : ScriptableObject, IInitialized, ISpellBuild
 {
     [Header("Ui")]
     [SerializeField] private string _header;
@@ -15,10 +15,12 @@ public class SpellBuild : ScriptableObject, IInitialized
     [Header("Impact")]
     [SerializeField] private BaseSpellEffect _effect;
     [SerializeField] private List<BaseSpellAction> _actions;
+    [SerializeField] private List<EnemyStatusParameters> _statuses;
 
     public TypesSelection TargetSelector => _targetSelector;
     public BaseSpellEffect Effect => _effect;
     public IEnumerable<BaseSpellAction> Actions => _actions;
+    public IEnumerable<EnemyStatusParameters> Statuses => _statuses;
     public Sprite Icon => _icon;
     public string Header => _header;
     public BaseAdditionalEnemySelector EnemySelector => _enemySelector;

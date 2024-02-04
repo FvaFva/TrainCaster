@@ -1,24 +1,28 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof(Animator))]
 public class EnemyView : MonoBehaviour, IStored
 {
     [SerializeField] private int _speed;
+    [SerializeField] private float _armor = 5;
     [SerializeField] private int _hitPoints;
     [SerializeField] private int _hitPointsDice;
     [SerializeField] private Dissolver _dissolver;
 
     private Transform _baseParent;
+    private Transform _transform;
     private Vector3 _baseSize;
     private ICell<EnemyView> _cell;
+    private float _animationSpeed;
+    private Animator _animator;
 
     private void Awake()
     {
         TryGetComponent<Animator>(out Animator animator);
-        MainAnimator = animator;
-        _baseParent = transform.parent;
-        _baseSize = transform.localScale;
+        _animator = animator;
+        _transform = transform;
+        _baseParent = _transform.parent;
+        _baseSize = _transform.localScale;
         gameObject.SetActive(false);
     }
 
@@ -32,8 +36,8 @@ public class EnemyView : MonoBehaviour, IStored
         _dissolver.Dissolved -= OnDissolveFinished;
     }
 
-    public Animator MainAnimator { get; private set; }
     public int Speed => _speed;
+    public float Armor => _armor;
 
     public void ConnectToCell(ICell<IStored> myCell)
     {
@@ -42,18 +46,25 @@ public class EnemyView : MonoBehaviour, IStored
 
     public void Activate(Transform parent)
     {
-        transform.parent = parent;
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        _transform.parent = parent;
+        _transform.localPosition = Vector3.zero;
+        _transform.localRotation = Quaternion.identity;
+        _animator.speed = 1;
         gameObject.SetActive(true);
         _dissolver.Show(1f);
     }
 
+    public void ChangeAnimationSpeed(float changeCoefficient = 0)
+    {
+        _animator.speed = _animationSpeed * (1 - changeCoefficient);
+    }
+
     public void TakeOff()
     {
-        transform.parent = _baseParent;
-        transform.localScale = _baseSize;
-        MainAnimator.SetBool("Win", true);
+        _transform.parent = _baseParent;
+        _transform.localScale = _baseSize;
+        _animator.speed = 2;
+        _animator.SetBool("Win", true);
         _dissolver.Hide(2f);
     }
 
@@ -67,7 +78,10 @@ public class EnemyView : MonoBehaviour, IStored
         else
             hitPoints -= hitPointsDiced;
 
-        transform.localScale *= (float)_hitPoints / (float)hitPoints;
+        float coefficient = (float)hitPoints / (float)_hitPoints;
+        _animationSpeed = 1 - (coefficient - 1);
+        ChangeAnimationSpeed();
+        _transform.localScale *= coefficient;
         return hitPoints;
     }
 
@@ -76,7 +90,7 @@ public class EnemyView : MonoBehaviour, IStored
         if(dissolve == 1)
         {
             _cell.AddItem(this);
-            MainAnimator.SetBool("Win", false);
+            _animator.SetBool("Win", false);
             gameObject.SetActive(false);
         }
     }

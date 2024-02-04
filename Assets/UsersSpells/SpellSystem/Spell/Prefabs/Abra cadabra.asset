@@ -14,10 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _header: 
   _icon: {fileID: 1388625261, guid: 182becd30bd3ae64ea5448bb2604c5fc, type: 3}
-  _targetSelector: 3
-  _enemySelector: {fileID: 11400000, guid: 0800cbac98824b447aec192cc01bb892, type: 2}
+  _targetSelector: 0
+  _enemySelector: {fileID: 11400000, guid: 698a84b5a983e54478be2398866226d9, type: 2}
   _radius: 0
   _count: 0
   _effect: {fileID: 11400000, guid: 7aa4acbd46dad184b9f854a1c4b3d9ab, type: 2}
   _actions:
   - {fileID: 11400000, guid: 0c3335c3e211c334f9b8583df098e3e0, type: 2}
+  _statuses:
+  - Defense: 0
+    FixDamagePerSeconds: 0
+    MoveSpeed: 0.8
+    Duration: 3

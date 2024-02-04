@@ -20,5 +20,13 @@ public class Spell
         {
             action.Apply(castTarget);
         }
+
+        foreach(EnemyStatusParameters statusParameters in _build.Statuses)
+        {
+            foreach(EnemyRouter enemy in castTarget.Enemies)
+            {
+                enemy.ApplyStatus(statusParameters);
+            }
+        }
     }
 }
