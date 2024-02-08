@@ -178,6 +178,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Craft",
+            "id": "1ee9c36d-3ece-4362-ad7d-a898b12f3829",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "c4eaff0f-2b06-4df1-8ba9-a113c3892b23",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "aa4ae7f5-6cee-492a-9217-d66d91a21607",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class Caster : MonoBehaviour
+public class SpellCaster : MonoBehaviour
 {
     [SerializeField] EnemySelector _enemySelector;
     [SerializeField] PointSelector _pointSelector;

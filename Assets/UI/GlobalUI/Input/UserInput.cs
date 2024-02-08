@@ -200,6 +200,34 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Craft"",
+            ""id"": ""1ee9c36d-3ece-4362-ad7d-a898b12f3829"",
+            ""actions"": [
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""c4eaff0f-2b06-4df1-8ba9-a113c3892b23"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""aa4ae7f5-6cee-492a-9217-d66d91a21607"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse Keyboard"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -232,6 +260,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         m_Cast_ChosedSkill1 = m_Cast.FindAction("ChosedSkill1", throwIfNotFound: true);
         m_Cast_ChosedSkill2 = m_Cast.FindAction("ChosedSkill2", throwIfNotFound: true);
         m_Cast_ChosedSkill3 = m_Cast.FindAction("ChosedSkill3", throwIfNotFound: true);
+        // Craft
+        m_Craft = asset.FindActionMap("Craft", throwIfNotFound: true);
+        m_Craft_Interact = m_Craft.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -421,6 +452,52 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         }
     }
     public CastActions @Cast => new CastActions(this);
+
+    // Craft
+    private readonly InputActionMap m_Craft;
+    private List<ICraftActions> m_CraftActionsCallbackInterfaces = new List<ICraftActions>();
+    private readonly InputAction m_Craft_Interact;
+    public struct CraftActions
+    {
+        private @UserInput m_Wrapper;
+        public CraftActions(@UserInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Interact => m_Wrapper.m_Craft_Interact;
+        public InputActionMap Get() { return m_Wrapper.m_Craft; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CraftActions set) { return set.Get(); }
+        public void AddCallbacks(ICraftActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CraftActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CraftActionsCallbackInterfaces.Add(instance);
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+        }
+
+        private void UnregisterCallbacks(ICraftActions instance)
+        {
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+        }
+
+        public void RemoveCallbacks(ICraftActions instance)
+        {
+            if (m_Wrapper.m_CraftActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICraftActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CraftActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CraftActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CraftActions @Craft => new CraftActions(this);
     private int m_MouseKeyboardSchemeIndex = -1;
     public InputControlScheme MouseKeyboardScheme
     {
@@ -442,5 +519,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         void OnChosedSkill1(InputAction.CallbackContext context);
         void OnChosedSkill2(InputAction.CallbackContext context);
         void OnChosedSkill3(InputAction.CallbackContext context);
+    }
+    public interface ICraftActions
+    {
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

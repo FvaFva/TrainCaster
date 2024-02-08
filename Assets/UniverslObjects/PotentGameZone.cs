@@ -14,29 +14,36 @@ public class PotentGameZone : MonoBehaviour
     [SerializeField] private Vector2 _size;
 
     private Transform _transform;
+    private float _xOffsite;
+    private float _zOffsite;
 
     private void Awake()
     {
         _transform = transform;
+        _xOffsite = _size.x / 2;
+        _zOffsite = _size.y / 2;
     }
 
     public Vector3 Center => _transform.position;
     public Vector3 Size => _size;
 
+    public Vector3 GetRandomPoint()
+    {
+        return new Vector3(Center.x + Random.Range(-_xOffsite, _xOffsite), Center.y, Center.z + Random.Range(-_zOffsite, _zOffsite));
+    }
+
     public Vector3[,] GetWorldPosition()
     {
         Vector3[,] positions = new Vector3[2, 2];
 
-        float xOffsite = _size.x / 2;
-        float zOffsite = _size.y / 2;
         float x = Center.x;
         float y = Center.y;
         float z = Center.z;
 
-        positions[0, 0] = new Vector3(x - xOffsite, y, z - zOffsite);
-        positions[0, 1] = new Vector3(x - xOffsite, y, z + zOffsite);
-        positions[1, 0] = new Vector3(x + xOffsite, y, z - zOffsite);
-        positions[1, 1] = new Vector3(x + xOffsite, y, z + zOffsite);
+        positions[0, 0] = new Vector3(x - _xOffsite, y, z - _zOffsite);
+        positions[0, 1] = new Vector3(x - _xOffsite, y, z + _zOffsite);
+        positions[1, 0] = new Vector3(x + _xOffsite, y, z - _zOffsite);
+        positions[1, 1] = new Vector3(x + _xOffsite, y, z + _zOffsite);
 
         return positions;
     }
