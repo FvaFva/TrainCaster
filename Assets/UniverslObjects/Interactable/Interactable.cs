@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour
 {
     private const float MoveDuration = 0.4f;
 

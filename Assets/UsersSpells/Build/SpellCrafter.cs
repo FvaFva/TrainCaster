@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -12,9 +13,12 @@ public class SpellCrafter : MonoBehaviour
     [Inject] private UserInput _input;
 
     private Interactable _currentLooped;
+    private LootBox _lootBox;
     private Interactable _currentHighlighted;
     private Camera _camera;
     private RaycastHit _hit;
+
+    public event Action<LootBox> LootBoxChanged;
 
     private void Awake()
     {
@@ -70,5 +74,19 @@ public class SpellCrafter : MonoBehaviour
 
         _currentHighlighted.MoveTo(_cameraLoop.Center);
         _currentLooped = _currentHighlighted;
+        UpdateLootBox();
+    }
+
+    private void UpdateLootBox()
+    {
+        LootBox newLootBox = null;
+
+        if(_currentLooped != null && _currentLooped is LootBox)
+            newLootBox = _currentLooped as LootBox;
+
+        if(newLootBox != _lootBox)
+            LootBoxChanged?.Invoke(newLootBox);
+
+        _lootBox = newLootBox;
     }
 }
