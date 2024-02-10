@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddffdabfd650ece45b96ba86635a6de3, type: 3}
   m_Name: LinerCaster
   m_EditorClassIdentifier: 
+  _description: Cast a liner bullet to target
   _bullet: {fileID: 2284052843634304160, guid: cc3505a390ca4444ea9a1821984f3c01, type: 3}
-  _freezeY: 1

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddffdabfd650ece45b96ba86635a6de3, type: 3}
   m_Name: TargetBulletCreator
   m_EditorClassIdentifier: 
+  _description: Cast a targetable bullet
   _bullet: {fileID: 8821662206383606841, guid: ba87826765e01fc46b4577f0b5591e64, type: 3}

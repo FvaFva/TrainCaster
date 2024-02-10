@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3385148a7bcb9854996466ba658a4b56, type: 3}
   m_Name: NonEnemySelector
   m_EditorClassIdentifier: 
+  _description: Non additional selector

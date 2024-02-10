@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb54175334cb1f240aa0a3c5883789b6, type: 3}
   m_Name: Hit
   m_EditorClassIdentifier: 
+  _description: Get damage to targets
   _damage: 50

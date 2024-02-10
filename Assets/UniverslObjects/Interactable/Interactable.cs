@@ -13,6 +13,7 @@ public abstract class Interactable : MonoBehaviour
     private void Awake()
     {
         _transform = transform;
+        AwakeLoad();
     }
 
     public void ChangeHighlight(bool highlight)
@@ -27,4 +28,6 @@ public abstract class Interactable : MonoBehaviour
     {
         _transform.DOMove(newPosition, MoveDuration);
     }
+
+    protected abstract void AwakeLoad();
 }

@@ -141,10 +141,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 4630762444988639464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d4a7825cdd2b849b19afb51f25b232, type: 3}
+  m_Script: {fileID: 11500000, guid: 93a41bb4d40c59a42adc5672a9ba275a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _highlightEffect: {fileID: 4630762445056852159}
+  _drop:
+  - Weight: 40
+    SpellPart: {fileID: 11400000, guid: 0c3335c3e211c334f9b8583df098e3e0, type: 2}
+  - Weight: 20
+    SpellPart: {fileID: 11400000, guid: 0800cbac98824b447aec192cc01bb892, type: 2}
+  - Weight: 40
+    SpellPart: {fileID: 11400000, guid: 7aa4acbd46dad184b9f854a1c4b3d9ab, type: 2}
+  - Weight: 40
+    SpellPart: {fileID: 11400000, guid: b978ddc5e25558a439ed11d1b768ba71, type: 2}
+  - Weight: 20
+    SpellPart: {fileID: 11400000, guid: b183cd002e698ef49b05746dda5ceb96, type: 2}
 --- !u!54 &4630762444988639442
 Rigidbody:
   m_ObjectHideFlags: 0

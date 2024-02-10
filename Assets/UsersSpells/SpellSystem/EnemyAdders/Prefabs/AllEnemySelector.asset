@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3045f044beeda5e42bb3e123632d3daa, type: 3}
   m_Name: AllEnemySelector
   m_EditorClassIdentifier: 
+  _description: Selector all enemy

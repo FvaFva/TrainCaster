@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48887aba6ca6de64280c95858cb083f6, type: 3}
   m_Name: RadiusEnemySelector
   m_EditorClassIdentifier: 
+  _description: Selector Enemy in radius

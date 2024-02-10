@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc43e2cc18f44c54cb754514b91dbdda, type: 3}
   m_Name: RandomEnemySelector
   m_EditorClassIdentifier: 
+  _description: Random enemy selector

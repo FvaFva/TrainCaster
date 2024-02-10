@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -17,12 +18,19 @@ public class SpellCrafter : MonoBehaviour
     private Interactable _currentHighlighted;
     private Camera _camera;
     private RaycastHit _hit;
+    private SpellInventory _inventory;
+    public Dictionary<SpellPartTypes, SpellPart> _spellParts;
 
     public event Action<LootBox> LootBoxChanged;
 
     private void Awake()
     {
         _camera = Camera.main;
+        _inventory = new SpellInventory();
+        _spellParts = new Dictionary<SpellPartTypes, SpellPart>();
+
+        foreach (SpellPartTypes type in Enum.GetValues(typeof(SpellPartTypes)))
+            _spellParts.Add(type, null);
     }
 
     private void OnEnable()
@@ -33,6 +41,13 @@ public class SpellCrafter : MonoBehaviour
     public ISpellBuild Craft()
     {
         return new CraftedSpell();
+    }
+
+    public void OpenBox()
+    {
+        SpellPart spellPart = _lootBox?.Open();
+        Debug.Log($"Box opened!!! Drop: {spellPart.name} - {spellPart.Description}");
+        _spellParts[spellPart.Type] = spellPart;
     }
 
     private void FixedUpdate()
