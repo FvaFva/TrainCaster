@@ -2,9 +2,9 @@
 
 public class Spell
 {
-    private SpellBuild _build;
+    private ISpellBuild _build;
 
-    public Spell(SpellBuild build)
+    public Spell(ISpellBuild build)
     {
         _build = build;
     }

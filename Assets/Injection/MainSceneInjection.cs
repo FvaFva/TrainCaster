@@ -5,7 +5,7 @@ using Zenject;
 public class MainSceneInjection : MonoInstaller
 {
     [SerializeField] private SpellCaster _caster;
-    [SerializeField] private SpellCrafter _crafter; 
+    [SerializeField] private TakerInteractive _taker; 
     [SerializeField] private Train _train;
     [SerializeField] private SpellBar _spellBar;
     [SerializeField] private PoolService _poolService;
@@ -40,7 +40,7 @@ public class MainSceneInjection : MonoInstaller
     private void Inject()
     {
         Container.InjectGameObject(_caster.gameObject);
-        Container.InjectGameObject(_crafter.gameObject);
+        Container.InjectGameObject(_taker.gameObject);
         Container.InjectGameObject(_train.gameObject);
         Container.InjectGameObject(_enemyFactory.gameObject);
         Container.InjectGameObject(_gameStateMachine.gameObject);

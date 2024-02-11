@@ -1,6 +1,7 @@
 ﻿public enum SpellPartTypes
 {
+    Root,
     Action,
     Effect,
-    Adder
+    EnemyAdder,
 }
