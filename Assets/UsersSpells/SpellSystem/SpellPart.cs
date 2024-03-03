@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class SpellPart : ScriptableObject
+public abstract class SpellPart : ScriptableObject, ISpellPart
 {
     [Header("Spell part settings")]
     [SerializeField] private string _description;

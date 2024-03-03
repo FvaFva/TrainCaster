@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class SpellCrafter : MonoBehaviour
 {
-    [SerializeField] LootBoxUnpacker _unpacker;
+    [Inject] private SpellInventory _inventory;
 
-    private SpellInventory _inventory;
     private Dictionary<SpellPartTypes, SpellPart> _spellParts;
+
+    public event Action<IEnumerable<SpellPart>> Changed;
 
     private void Awake()
     {
-        _inventory = new SpellInventory();
         _spellParts = new Dictionary<SpellPartTypes, SpellPart>();
 
         foreach (SpellPartTypes type in Enum.GetValues(typeof(SpellPartTypes)))
@@ -20,24 +21,35 @@ public class SpellCrafter : MonoBehaviour
 
     private void OnEnable()
     {
-        _unpacker.OnOpen += OnOpenBox;
+        _inventory.Chose += AddPart;
     }
 
     private void OnDisable()
     {
-        _unpacker.OnOpen -= OnOpenBox;
+        _inventory.Chose -= AddPart;
     }
 
     public ISpellBuild Craft()
     {
         CraftedSpell newSpell = new CraftedSpell(_spellParts[SpellPartTypes.Effect] as BaseSpellEffect, _spellParts[SpellPartTypes.EnemyAdder] as BaseAdditionalEnemySelector, _spellParts[SpellPartTypes.Root] as SpellRoot);
         newSpell.AddSpellAction(_spellParts[SpellPartTypes.Action] as BaseSpellAction);
+
+        foreach(SpellPartTypes type in _spellParts.Keys)
+        {
+            if (_spellParts[type] == null)
+                continue;
+
+            _inventory.Remove(_spellParts[type]);
+            _spellParts[type] = null;
+        }
+
+        Changed?.Invoke(_spellParts.Values);
         return newSpell;
     }
 
-    private void OnOpenBox(SpellPart spellPart)
+    private void AddPart(SpellPart part)
     {
-        Debug.Log($"Box opened!!! Drop: {spellPart.name} - {spellPart.Description}");
-        _spellParts[spellPart.Type] = spellPart;
+        _spellParts[part.Type] = part;
+        Changed?.Invoke(_spellParts.Values);
     }
 }

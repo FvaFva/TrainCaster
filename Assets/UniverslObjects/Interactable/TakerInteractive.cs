@@ -16,6 +16,7 @@ public class TakerInteractive : MonoBehaviour
     private Interactable _currentHighlighted;
     private Camera _camera; 
     private RaycastHit _hit;
+    private bool _isCursorOverUI;
 
     public event Action<Interactable> TakenChanged;
 
@@ -36,7 +37,7 @@ public class TakerInteractive : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (_isCursorOverUI)
             return;
 
         Interactable taken = null;
@@ -61,10 +62,14 @@ public class TakerInteractive : MonoBehaviour
         _currentHighlighted?.ChangeHighlight(true);
     }
 
+    private void Update()
+    {
+        _isCursorOverUI = EventSystem.current.IsPointerOverGameObject();
+    }
 
     private void FixedUpdate()
     {
-        if (EventSystem.current.IsPointerOverGameObject() == false)
+        if (_isCursorOverUI == false)
         {
             Ray tapRay = _camera.ScreenPointToRay(Input.mousePosition);
 
