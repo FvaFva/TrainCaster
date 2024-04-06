@@ -25,6 +25,8 @@ public class PotentGameZone : MonoBehaviour
     }
 
     public Vector3 Center => _transform.position;
+    public Vector3 Direction => _transform.forward;
+
     public Vector3 Size => _size;
 
     public Vector3 GetRandomPoint()
@@ -32,7 +34,12 @@ public class PotentGameZone : MonoBehaviour
         return new Vector3(Center.x + Random.Range(-_xOffsite, _xOffsite), Center.y, Center.z + Random.Range(-_zOffsite, _zOffsite));
     }
 
-    public Vector3[,] GetWorldPosition()
+    public void LookAt(Vector3 position)
+    {
+        _transform.LookAt(position);
+    }
+
+    public Vector3[,] GetWorldLocation()
     {
         Vector3[,] positions = new Vector3[2, 2];
 

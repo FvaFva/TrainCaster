@@ -6,7 +6,7 @@ public class GameStateMachine : MonoBehaviour
     private BaseGameState _currentState;
     private Coroutine _currentAction;
 
-    [Inject] private GameState _gameState;
+    [Inject] private GameStateBuilder _gameState;
 
     private void Awake()
     {

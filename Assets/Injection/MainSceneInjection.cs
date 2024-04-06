@@ -9,6 +9,7 @@ public class MainSceneInjection : MonoInstaller
     [SerializeField] private LootBoxUnpacker _boxUnpacker;
     [SerializeField] private SpellInventoryView _inventoryView;
     [SerializeField] private Train _train;
+    [SerializeField] private Railways _railways;
     [SerializeField] private SpellBar _spellBar;
     [SerializeField] private PoolService _poolService;
     [SerializeField] private EnemyFactory _enemyFactory;
@@ -36,7 +37,7 @@ public class MainSceneInjection : MonoInstaller
         input.Enable();
         Container.Bind<UserInput>().FromInstance(input).AsSingle().NonLazy();
         Container.Bind<PoolService>().FromInstance(_poolService).AsSingle().NonLazy();
-        Container.Bind<GameState>().FromNew().AsSingle().NonLazy();
+        Container.Bind<GameStateBuilder>().FromNew().AsSingle().NonLazy();
         Container.Bind<ActiveEnemies>().FromInstance(new ActiveEnemies(_enemyFactory)).AsSingle().NonLazy();
 
         Container.Bind<LootBoxUnpacker>().FromInstance(_boxUnpacker).AsSingle().NonLazy();
@@ -48,6 +49,7 @@ public class MainSceneInjection : MonoInstaller
         Container.Inject(_caster);
         Container.Inject(_taker);
         Container.Inject(_train);
+        Container.Inject(_railways);
         Container.Inject(_enemyFactory);
         Container.Inject(_gameStateMachine);
         Container.Inject(_base);

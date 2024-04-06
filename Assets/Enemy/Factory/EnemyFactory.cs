@@ -12,7 +12,7 @@ public class EnemyFactory : MonoBehaviour, IInitialized
     [SerializeField] private int _testCountPreload;
 
     [Inject] private PoolService _poolService;
-    [Inject] private GameState _game;
+    [Inject] private GameStateBuilder _game;
 
     public event Action<EnemyRouter> Created;
 
