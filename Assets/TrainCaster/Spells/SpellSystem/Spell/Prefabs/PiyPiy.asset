@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96e5cebb92a62b49b7b63884f816b91, type: 3}
+  m_Name: PiyPiy
+  m_EditorClassIdentifier: 
+  _targetSelector: {fileID: 11400000, guid: cebb193ab7a221d4aaab22540c21fcb2, type: 2}
+  _effect: {fileID: 11400000, guid: b978ddc5e25558a439ed11d1b768ba71, type: 2}
+  _actions:
+  - {fileID: 11400000, guid: 0c3335c3e211c334f9b8583df098e3e0, type: 2}
+  _statuses: []
+  _enemySelector: {fileID: 11400000, guid: 84c01d7fa6985be4a902f41bc7693239, type: 2}
+  _rarity: 3

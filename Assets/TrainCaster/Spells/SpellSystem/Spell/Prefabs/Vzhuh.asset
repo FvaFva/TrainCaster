@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96e5cebb92a62b49b7b63884f816b91, type: 3}
+  m_Name: Vzhuh
+  m_EditorClassIdentifier: 
+  _targetSelector: {fileID: 11400000, guid: c350d2ef46b75dc4488d45684cb7319e, type: 2}
+  _effect: {fileID: 11400000, guid: 0b659391f482b2445b9982186deea866, type: 2}
+  _actions: []
+  _statuses:
+  - Armor: 0
+    FixDamagePerSeconds: 50
+    MoveSpeed: 0.6
+    Duration: 1
+  _enemySelector: {fileID: 11400000, guid: 0800cbac98824b447aec192cc01bb892, type: 2}
+  _rarity: 3

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96e5cebb92a62b49b7b63884f816b91, type: 3}
+  m_Name: Abra cadabra
+  m_EditorClassIdentifier: 
+  _targetSelector: {fileID: 11400000, guid: 0adf119e951460046b5bac352ad2db11, type: 2}
+  _effect: {fileID: 11400000, guid: 7aa4acbd46dad184b9f854a1c4b3d9ab, type: 2}
+  _actions:
+  - {fileID: 11400000, guid: 0c3335c3e211c334f9b8583df098e3e0, type: 2}
+  _statuses:
+  - Armor: 0
+    FixDamagePerSeconds: 0
+    MoveSpeed: 0.8
+    Duration: 3
+  _enemySelector: {fileID: 11400000, guid: 84c01d7fa6985be4a902f41bc7693239, type: 2}
+  _rarity: 3
