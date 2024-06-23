@@ -206,6 +206,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "SystemSource",
+            "id": "53a79673-e9f2-4aa2-82fa-d93a78c861f8",
+            "actions": [
+                {
+                    "name": "CoursorPosition",
+                    "type": "Value",
+                    "id": "c3f51692-7284-43d2-977f-cffc31bf192c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "48c2a5e1-7bc5-41a9-92f3-76ff8deab9f1",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "CoursorPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

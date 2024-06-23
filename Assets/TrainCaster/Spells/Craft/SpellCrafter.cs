@@ -4,18 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class SpellCrafter : MonoBehaviour
+public class SpellCrafter : MonoBehaviour, IInventorySource
 {
     [SerializeField] private Train _train;
     [SerializeField] private SpellSlot _slot;
     [SerializeField] private Button _craftButton;
 
-    [Inject] private SpellInventory _inventory;
+    [Inject] private Inventory<SpellElement> _inventory;
 
     private Dictionary<SpellPartTypes, SpellElement> _spellParts;
     private Wagon _wagon;
 
     public event Action<IEnumerable<SpellElement>> Changed;
+    public event Action<ICard> Mined;
 
     private void Awake()
     {
@@ -58,6 +59,7 @@ public class SpellCrafter : MonoBehaviour
 
         _wagon.ApplySpellBuild(newSpell);
         Changed?.Invoke(_spellParts.Values);
+        Mined?.Invoke(newSpell);
     }
 
     private void AddPart(SpellElement part)

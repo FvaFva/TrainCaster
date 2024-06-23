@@ -57,6 +57,8 @@ public class CurrencyService : MonoBehaviour, IInitialized
                 _poolService.Put(currency.Transport, CountTransportPreLoad, currency.Name);
 
             Added?.Invoke(currency);
+            Debug.Log($"Added some {currency}");
+            Mined?.Invoke(10000, currency);
         }
     }
 

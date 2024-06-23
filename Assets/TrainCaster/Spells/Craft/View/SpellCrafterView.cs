@@ -5,14 +5,14 @@ using UnityEngine;
 public class SpellCrafterView : MonoBehaviour
 {
     [SerializeField] private SpellCrafter _crafter;
-    [SerializeField] private SpellPartView _prefab;
+    [SerializeField] private InventoryCellView _prefab;
     [SerializeField] private RectTransform _content;
 
-    private List<SpellPartView> _spellParts;
+    private List<InventoryCellView> _spellParts;
 
     private void Awake()
     {
-        _spellParts = new List<SpellPartView>();
+        _spellParts = new List<InventoryCellView>();
 
         foreach (SpellPartTypes type in Enum.GetValues(typeof(SpellPartTypes)))
             _spellParts.Add(Instantiate(_prefab, _content));
@@ -34,13 +34,13 @@ public class SpellCrafterView : MonoBehaviour
 
         foreach (SpellElement part in parts)
         {
-            _spellParts[i].Show(part);
+            _spellParts[i].SetSource(part);
             i++;
         }
 
         for (int j = i; j < _spellParts.Count; j++)
         {
-            _spellParts[j].Show(null);
+            _spellParts[j].SetSource(null);
         }
     }
 }

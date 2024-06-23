@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
 
-public interface ISpellBuild: IInitialized, ICardSource
+public interface ISpellBuild: IInitialized, ICard
 {
     public TypesSelection TargetSelector {  get; }
     public BaseSpellEffect Effect { get; }

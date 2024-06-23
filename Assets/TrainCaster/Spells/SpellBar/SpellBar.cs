@@ -8,7 +8,7 @@ public class SpellBar : MonoBehaviour
     [SerializeField] private SpellSlot _secondSlot;
     [SerializeField] private Train _train;
 
-    private Dictionary<Guid, SpellSlot> _slots;
+    private Dictionary<Guid, SpellSlot> _slots = new Dictionary<Guid, SpellSlot>();
 
     private void OnEnable()
     {
@@ -18,11 +18,6 @@ public class SpellBar : MonoBehaviour
     private void OnDisable()
     {
         _train.ChoseNewWagons -= UpdateWagonsInSlots;
-    }
-
-    public void Init()
-    {
-        _slots = new Dictionary<Guid, SpellSlot>();
     }
 
     public void BindSlotToAction(Guid guid)

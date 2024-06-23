@@ -21,6 +21,7 @@ public class SpellBuild : ScriptableObject, ISpellBuild
     public Sprite Icon => _targetSelector.Icon;
     public string Name => _targetSelector.Header;
     public string Description => _targetSelector.Description;
+    public SpellPartRarities Rarity => _rarity;
 
     public void Init()
     {

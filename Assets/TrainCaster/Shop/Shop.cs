@@ -41,7 +41,7 @@ public class Shop: MonoBehaviour , IInitialized
         {
             _poolService.Put(item.Item, CountPreloadItems, item.Tag);
             ShopItemView newView = Instantiate(_viewPrefab, _viewParent);
-            newView.SetItem(item);
+            newView.SetSource(item);
             newView.Bought += OnChose;
             _views.Add(newView);
         }

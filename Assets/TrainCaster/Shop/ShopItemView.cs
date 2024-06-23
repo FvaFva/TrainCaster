@@ -13,7 +13,7 @@ public class ShopItemView: CardView
 
     public event Action<ShopItem> Bought;
 
-    public void SetItem(ShopItem item)
+    public void SetSource(ShopItem item)
     {
         if (_shopItem.Item != null)
             return;
@@ -21,7 +21,7 @@ public class ShopItemView: CardView
         _shopItem = item;
         _cost.text = item.Cost.ToString();
         _currencyIcon.sprite = item.Currency.Icon;
-        SetSource(_shopItem.Item);
+        base.SetSource(_shopItem.Item);
     }
 
     protected override void MainButtonCollBack()

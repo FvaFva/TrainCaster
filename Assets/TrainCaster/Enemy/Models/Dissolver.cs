@@ -7,7 +7,7 @@ public class Dissolver : MonoBehaviour
 {
     private const string ShaderName = "Shader Graphs/Dissolve";
 
-    [SerializeField] private List<SkinnedMeshRenderer> _renderers;
+    [SerializeField] private List<Renderer> _renderers;
 
     private float _dissolve = 1;
     private List<Material> _dissolveMaterials;
@@ -21,7 +21,7 @@ public class Dissolver : MonoBehaviour
 
         Dictionary<Material, Material> checkedMaterials = new Dictionary<Material, Material>();
 
-        foreach (SkinnedMeshRenderer renderer in _renderers)
+        foreach (Renderer renderer in _renderers)
         {
             for (int i = 0; i < renderer.sharedMaterials.Length; i++)
             {

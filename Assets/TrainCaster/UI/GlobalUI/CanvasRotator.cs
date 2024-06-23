@@ -3,24 +3,26 @@ using UnityEngine;
 [RequireComponent(typeof(Canvas))]
 public class CanvasRotator : MonoBehaviour
 {
-    private Transform _camera;
+    [SerializeField] private Transform _customFocus;
+
+    private Transform _focus;
 
     private void Awake()
     {
         if(TryGetComponent<Canvas>(out Canvas temp) == false)
             enabled = false;
-
-        if(temp.renderMode != RenderMode.WorldSpace)
+        else if(temp.renderMode != RenderMode.WorldSpace)
             enabled = false;
-
-        if(temp.worldCamera != null)
-            _camera = temp.worldCamera.transform;
+        else if(_customFocus != null)
+            _focus = _customFocus;
+        else if (temp.worldCamera != null)
+            _focus = temp.worldCamera.transform;
         else
-            _camera = Camera.main.transform;
+            _focus = Camera.main.transform;
     }
 
     private void Update()
     {
-        transform.rotation = _camera.rotation;
+        transform.rotation = _focus.rotation;
     }
 }

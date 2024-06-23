@@ -10,15 +10,7 @@ public class LootBox : Interactable
 
     public SpellPart Open()
     {
-        int dicedValue = Random.Range(0, _totalWeight);
-        SpellPart result = _drop[0].SpellPart;
-
-        foreach (LootBoxSlot slot in _drop)
-        {
-            if (slot.Range > dicedValue)
-                result = slot.SpellPart;
-        }
-
+        SpellPart result = GetRandomLoot();
         Deactivate();
         return result;
     }
@@ -33,5 +25,18 @@ public class LootBox : Interactable
 
         if (_totalWeight == 0)
             gameObject.SetActive(false);
+    }
+
+    private SpellPart GetRandomLoot()
+    {
+        int dicedValue = Random.Range(0, _totalWeight);
+        
+        foreach (LootBoxSlot slot in _drop)
+        {
+            if (slot.Range > dicedValue)
+                return slot.SpellPart;
+        }
+
+        return _drop[0].SpellPart;
     }
 }

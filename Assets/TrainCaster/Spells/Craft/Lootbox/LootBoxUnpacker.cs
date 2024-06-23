@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LootBoxUnpacker : MonoBehaviour
+public class LootBoxUnpacker : MonoBehaviour, IInventorySource
 {
     [SerializeField] private TakerInteractive _taker;
     [SerializeField] private Button _open;
@@ -11,13 +11,13 @@ public class LootBoxUnpacker : MonoBehaviour
 
     private LootBox _current;
 
-    public event Action<SpellPart, SpellPartRarities> OnOpen;
+    public event Action<ICard> Mined;
     public event Action<LootBox> OnChange;
 
     public void TEMP_LoadPreset()
     {
         foreach(SpellPart part in _tempTest)
-            OnOpen?.Invoke(part, SpellPartRarities.Common);
+            Mined?.Invoke(new SpellElement(part, SpellPartRarities.Common));
     }
 
     private void OnEnable()
@@ -47,7 +47,7 @@ public class LootBoxUnpacker : MonoBehaviour
     {
         if(_current != null)
         {
-            OnOpen?.Invoke(_current.Open(), SpellPartRarities.Legendary);
+            Mined?.Invoke(new SpellElement(_current.Open(), SpellPartRarities.Legendary));
         }
     }
 }

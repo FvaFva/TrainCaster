@@ -32,6 +32,7 @@ public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _delayFollow = new WaitForSeconds(DelayFollowSeconds);
         _deltaFollow = new Vector2(0.3f, 0);
         _defaultIcon = _icon.sprite;
+        AwakeCallBack();
     }
 
     private void OnEnable()
@@ -43,30 +44,6 @@ public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private void OnDisable()
     {
         _mainButton.onClick.RemoveListener(OnClickMainButton);
-    }
-
-    protected void SetSource(ICardSource source)
-    {
-        if (source != null)
-        {
-            _icon.sprite = source.Icon;
-            _label.text = source.Name;
-            _description.text = source.Description;
-            _isHaveDescription = source.Description != string.Empty;
-        }
-        else
-        {
-            _icon.sprite = _defaultIcon;
-            _label.text = string.Empty;
-            _description.text = string.Empty;
-            _isHaveDescription = false;
-        }
-    }
-
-    private void OnClickMainButton()
-    {
-        MainButtonCollBack();
-        Chose?.Invoke();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -83,6 +60,31 @@ public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _isPointInside = false;
     }
 
+    public virtual void SetSource(ICard source)
+    {
+        bool isWithSource = source != null;
+        _label.enabled = isWithSource;
+        _description.enabled = isWithSource;
+
+        if (isWithSource)
+        {
+            _icon.sprite = source.Icon;
+            _label.text = source.Name;
+            _description.text = source.Description;
+            _isHaveDescription = source.Description != string.Empty;
+        }
+        else
+        {
+            _icon.sprite = _defaultIcon;
+            _label.text = string.Empty;
+            _description.text = string.Empty;
+            _isHaveDescription = false;
+        }
+    }
+
+    protected abstract void MainButtonCollBack();
+    protected virtual void AwakeCallBack(){ }
+
     private IEnumerator FollowCursor()
     {
         _descriptionElement.gameObject.SetActive(true);
@@ -97,5 +99,9 @@ public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _descriptionElement.gameObject.SetActive(false);
     }
 
-    protected abstract void MainButtonCollBack();
+    private void OnClickMainButton()
+    {
+        MainButtonCollBack();
+        Chose?.Invoke();
+    }
 }

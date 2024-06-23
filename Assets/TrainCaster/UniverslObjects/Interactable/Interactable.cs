@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 
-public abstract class Interactable : MonoBehaviour, IStored, ICardSource
+public abstract class Interactable : MonoBehaviour, IStored, ICard
 {
     private const float AnimationDuration = 0.4f;
 
@@ -14,6 +14,7 @@ public abstract class Interactable : MonoBehaviour, IStored, ICardSource
     [SerializeField] private string _description;
     [SerializeField] private Transform _view;
     [SerializeField] private Vector3 _viewDelta;
+    [SerializeField] private SpellPartRarities _rarity;
 
     private Transform _transform;
 
@@ -23,6 +24,8 @@ public abstract class Interactable : MonoBehaviour, IStored, ICardSource
     public bool IsActive {  get; private set; }
 
     public event Action<IStored> ReturnedToPool;
+
+    public SpellPartRarities Rarity => _rarity;
 
     private void Awake()
     {

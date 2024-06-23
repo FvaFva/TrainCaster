@@ -4,13 +4,21 @@ using Zenject;
 
 public class MainSceneInjection : MonoInstaller
 {
-    [SerializeField] private SpellCaster _caster;
-    [SerializeField] private TakerInteractive _taker; 
+    [Header("Inventory")]
+    [SerializeField] private InventoryBinder _inventoryBinder;
     [SerializeField] private LootBoxUnpacker _boxUnpacker;
-    [SerializeField] private SpellInventoryView _inventoryView;
+    [SerializeField] private SpellCrafter _spellCrafter;
+
+    [Header("Cast")]
+    [SerializeField] private SpellCaster _caster;
+    [SerializeField] private TakerInteractive _taker;
+    [SerializeField] private SpellBar _spellBar;
+
+    [Header("Train")]
     [SerializeField] private Train _train;
     [SerializeField] private Railways _railways;
-    [SerializeField] private SpellBar _spellBar;
+
+    [Header("System")]
     [SerializeField] private PoolService _poolService;
     [SerializeField] private EnemyFactory _enemyFactory;
     [SerializeField] private Base _base;
@@ -20,19 +28,12 @@ public class MainSceneInjection : MonoInstaller
     [SerializeField] private PlayerWallet _playerWallet;
     [SerializeField] private List<BaseSpellEffect> _spellEffects;
     [SerializeField] private List<BaseEnemySelector> _additionalSelectors;
+    [SerializeField] private AxisRotator _axisRotator;
 
     public override void InstallBindings()
     {
         Bind();
         Inject();
-        Init();
-        _boxUnpacker.TEMP_LoadPreset();
-    }
-
-    private void Init()
-    {
-        _spellBar.Init();
-        _inventoryView.Instantiate();
     }
 
     private void Bind()
@@ -46,9 +47,14 @@ public class MainSceneInjection : MonoInstaller
         Container.Bind<GameStateBuilder>().FromNew().AsSingle().NonLazy();
         Container.Bind<CurrencyService>().FromInstance(_mineService).AsSingle().NonLazy();
         Container.Bind<ActiveEnemies>().FromInstance(new ActiveEnemies(_enemyFactory)).AsSingle().NonLazy();
+        InventoryBind<SpellElement>(_boxUnpacker);
+        InventoryBind<CraftedSpell>(_spellCrafter);
+    }
 
-        Container.Bind<LootBoxUnpacker>().FromInstance(_boxUnpacker).AsSingle().NonLazy();
-        Container.Bind<SpellInventory>().FromNew().AsSingle().NonLazy();
+    private void InventoryBind<T>(IInventorySource source) where T : ICard
+    {
+        Inventory<T> inventory = new Inventory<T>(source);
+        Container.Bind<Inventory<T>>().FromInstance(inventory).AsSingle().NonLazy();
     }
 
     private void Inject()
@@ -60,7 +66,9 @@ public class MainSceneInjection : MonoInstaller
         Container.Inject(_enemyFactory);
         Container.Inject(_gameStateMachine);
         Container.Inject(_base);
-        Container.Inject(_inventoryView);
+        Container.Inject(_spellBar);
+        Container.Inject(_inventoryBinder);
+        Container.Inject(_axisRotator);
 
         foreach (BaseSpellEffect effect in _spellEffects)
             Container.Inject(effect);
