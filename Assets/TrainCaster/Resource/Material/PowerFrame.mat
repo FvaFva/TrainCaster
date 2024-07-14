@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7662028962392709162
+--- !u!114 &-3444156924484733131
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dissolve
-  m_Shader: {fileID: -6465566751694194690, guid: 56f32408d7b038b4980d182c3510d034, type: 3}
+  m_Name: PowerFrame
+  m_Shader: {fileID: -6465566751694194690, guid: 5284d57e810535643a64fb1ee838d6af, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -37,8 +37,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _baseMap:
-        m_Texture: {fileID: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: cc2d009b31ce2134a9438a34a78632a0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 182becd30bd3ae64ea5448bb2604c5fc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_68dfe7a059584e7593dca2c2e18580f3_Texture_1_Texture2D:
+        m_Texture: {fileID: 10904, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_765c057ffea145e1801ff5fec3b91fd8_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 9fd0803556af44591a2d3be1bd49a003, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -55,26 +67,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DissolveTime: 0.4
-    - _EmissionIntensive: 30
-    - _EmissionPower: 3
-    - _LiveTime: 2
-    - _Metalic: 11.53
+    - _Metallic: 0.233
+    - _Power: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smothness: 0.29
-    - _autoDessolving: 0
-    - _dissolve: 0.506
-    - _dissolveTime: 0.4
-    - _emissionIntensive: 30
-    - _emissionPower: 4.6
-    - _liveTime: 2
-    - _metalic: 0
-    - _smothness: 0.2
+    - _Smoothness: 0.14
     m_Colors:
-    - _BaseColor: {r: 0.18316127, g: 0.7924528, b: 0.21486494, a: 0}
-    - _Emission: {r: 0.030125273, g: 0.82198966, b: 0, a: 0}
-    - _baseColor: {r: 1, g: 1, b: 1, a: 0}
-    - _emission: {r: 9.850981, g: 0, b: 0, a: 0}
+    - _BaseMapUV: {r: 0.088315964, g: 0.61981666, b: 0.07080078, a: 0.114219114}
+    - _Color: {r: 2.494118, g: 0.1232939, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

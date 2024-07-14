@@ -21,7 +21,7 @@ public class ShopItemView: CardView
         _shopItem = item;
         _cost.text = item.Cost.ToString();
         _currencyIcon.sprite = item.Currency.Icon;
-        base.SetSource(_shopItem.Item);
+        base.SetContent(_shopItem.Item);
     }
 
     protected override void MainButtonCollBack()

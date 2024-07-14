@@ -32,14 +32,12 @@ public class LootBoxUnpacker : MonoBehaviour, IInventorySource
         _open.onClick.RemoveListener(Open);
     }
 
-    private void TryTakeLootBox(Interactable _interactable)
+    private void TryTakeLootBox(Interactable interactable)
     {
-        LootBox newBox = _interactable as LootBox;
-
-        if (newBox != _current)
+        if (interactable is LootBox box && box != _current)
         {
-            _current = newBox;
-            OnChange?.Invoke(newBox);
+            _current = box;
+            OnChange?.Invoke(box);
         }
     }
 
@@ -47,7 +45,16 @@ public class LootBoxUnpacker : MonoBehaviour, IInventorySource
     {
         if(_current != null)
         {
-            Mined?.Invoke(new SpellElement(_current.Open(), SpellPartRarities.Legendary));
+            Mined?.Invoke(new SpellElement(_current.Open(), GetRarity()));
+            _current = null;
+            OnChange?.Invoke(_current);
         }
+    }
+
+    private SpellPartRarities GetRarity()
+    {
+        var spellPartRarities = Enum.GetValues(typeof(SpellPartRarities));
+        int randomPos = UnityEngine.Random.Range(0, spellPartRarities.Length);
+        return (SpellPartRarities)spellPartRarities.GetValue(randomPos);
     }
 }

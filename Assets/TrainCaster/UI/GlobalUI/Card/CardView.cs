@@ -1,8 +1,8 @@
-﻿using System;
-using TMPro;
-using UnityEngine.EventSystems;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 
 public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -21,7 +21,9 @@ public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private RectTransform _transform;
     private WaitForSeconds _delayFollow;
     private bool _isHaveDescription;
-    private Sprite _defaultIcon;
+
+    protected Sprite DefaultIcon {  get; private set; }
+    public bool IsWithContent { get; private set; }
 
     public event Action Chose;
 
@@ -31,7 +33,7 @@ public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _transform = transform as RectTransform;
         _delayFollow = new WaitForSeconds(DelayFollowSeconds);
         _deltaFollow = new Vector2(0.3f, 0);
-        _defaultIcon = _icon.sprite;
+        DefaultIcon = _icon.sprite;
         AwakeCallBack();
     }
 
@@ -60,22 +62,22 @@ public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _isPointInside = false;
     }
 
-    public virtual void SetSource(ICard source)
+    public virtual void SetContent(ICard content)
     {
-        bool isWithSource = source != null;
-        _label.enabled = isWithSource;
-        _description.enabled = isWithSource;
+        IsWithContent = content != null;
+        _label.enabled = IsWithContent;
+        _description.enabled = IsWithContent;
 
-        if (isWithSource)
+        if (IsWithContent)
         {
-            _icon.sprite = source.Icon;
-            _label.text = source.Name;
-            _description.text = source.Description;
-            _isHaveDescription = source.Description != string.Empty;
+            _icon.sprite = content.Icon;
+            _label.text = content.Name;
+            _description.text = content.Description;
+            _isHaveDescription = content.Description != string.Empty;
         }
         else
         {
-            _icon.sprite = _defaultIcon;
+            _icon.sprite = DefaultIcon;
             _label.text = string.Empty;
             _description.text = string.Empty;
             _isHaveDescription = false;
@@ -84,6 +86,14 @@ public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     protected abstract void MainButtonCollBack();
     protected virtual void AwakeCallBack(){ }
+
+    protected void UpdateIcon(Sprite icon)
+    {
+        if(icon != null)
+        {
+            _icon.sprite = icon;
+        }
+    }
 
     private IEnumerator FollowCursor()
     {

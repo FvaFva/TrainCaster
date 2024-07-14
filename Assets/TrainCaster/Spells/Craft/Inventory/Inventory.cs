@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 public class Inventory<T> : IInventory where T : ICard
 {
+    private ICardView _showcase;
     private IInventorySource _source;
     private List<T> _elements = new List<T>();
 
-    public Inventory(IInventorySource unpacker)
+    public Inventory(IInventorySource source, ICardView showcase)
     {
-        _source = unpacker;
+        _source = source;
         _source.Mined += AddCard;
+        _showcase = showcase;
     }
 
     public IEnumerable<ICard> Parts => (IEnumerable<ICard>)_elements;
@@ -31,7 +33,10 @@ public class Inventory<T> : IInventory where T : ICard
         if (card is T element)
         {
             if (_elements.Contains(element))
+            {
+                _showcase.SetSource(element);
                 Chose?.Invoke(element);
+            }
         }
     }
 

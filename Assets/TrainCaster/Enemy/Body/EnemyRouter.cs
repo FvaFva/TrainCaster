@@ -77,6 +77,7 @@ public class EnemyRouter : MonoBehaviour, IStored
         gameObject.SetActive(true);
         _model = model;
         _model.Activate(transform);
+        _statusBar.Clear();
         ViewChanged?.Invoke(model);
 
         foreach (var part in _parts)

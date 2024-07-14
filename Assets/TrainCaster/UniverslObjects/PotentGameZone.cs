@@ -13,20 +13,20 @@ public class PotentGameZone : MonoBehaviour
     [Header("GameSettings")]
     [SerializeField] private Vector2 _size;
 
-    private Transform _transform;
+    
     private float _xOffsite;
     private float _zOffsite;
 
     private void Awake()
     {
-        _transform = transform;
+        Transform = base.transform;
         _xOffsite = _size.x / 2;
         _zOffsite = _size.y / 2;
     }
 
-    public Vector3 Center => _transform.position;
-    public Quaternion Direction => _transform.rotation;
-
+    public Vector3 Center => Transform.position;
+    public Quaternion Direction => Transform.rotation;
+    public Transform Transform { get; private set; }
     public Vector3 Size => _size;
 
     public Vector3 GetRandomPoint()
@@ -41,7 +41,7 @@ public class PotentGameZone : MonoBehaviour
 
     public void LookAt(Vector3 position)
     {
-        _transform.LookAt(position);
+        Transform.LookAt(position);
     }
 
     public Vector3[,] GetWorldLocation()
@@ -65,12 +65,12 @@ public class PotentGameZone : MonoBehaviour
         Gizmos.color = _color;
         float xOffsite = _size.x / 2;
         float zOffsite = _size.y / 2;
-        float y = transform.position.y;
-        float z = transform.position.z;
-        float x = transform.position.x;
+        float y = base.transform.position.y;
+        float z = base.transform.position.z;
+        float x = base.transform.position.x;
 
         if (_showCenter)
-            Gizmos.DrawWireSphere(transform.position, 0.3f);
+            Gizmos.DrawWireSphere(base.transform.position, 0.3f);
 
         if (_showAxis)
         {

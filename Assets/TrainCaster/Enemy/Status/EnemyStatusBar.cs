@@ -15,6 +15,11 @@ public class EnemyStatusBar
     public event Action<float> HitPointsTick;
     public event Action StaticChanged;
 
+    public void Clear()
+    {
+        _enemyStatuses.Clear();
+    }
+
     public void ApplyStatus(EnemyStatusParameters changing)
     {
         EnemyStatus enemyStatus = new EnemyStatus(changing);

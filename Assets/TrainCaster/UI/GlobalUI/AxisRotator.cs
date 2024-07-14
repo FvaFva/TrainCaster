@@ -28,7 +28,7 @@ public class AxisRotator : MonoBehaviour
     private void Update()
     {
         Vector2 offset = _input.SystemSource.CoursorPosition.ReadValue<Vector2>() - _screenCentre;
-        _transform.rotation = Quaternion.Euler(-1 * Calculate(offset.y, _inverseCenterY), Calculate(offset.x, _inverseCenterX), 0f);
+        _transform.localRotation = Quaternion.Euler(-1 * Calculate(offset.y, _inverseCenterY), Calculate(offset.x, _inverseCenterX), 0f);
     }
 
     private float Calculate(float offsetValue, float centerValue)

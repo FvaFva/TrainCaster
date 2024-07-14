@@ -34,13 +34,13 @@ public class SpellCrafterView : MonoBehaviour
 
         foreach (SpellElement part in parts)
         {
-            _spellParts[i].SetSource(part);
+            _spellParts[i].SetContent(part);
             i++;
         }
 
         for (int j = i; j < _spellParts.Count; j++)
         {
-            _spellParts[j].SetSource(null);
+            _spellParts[j].SetContent(null);
         }
     }
 }

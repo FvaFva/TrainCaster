@@ -8,11 +8,14 @@ public class MainSceneInjection : MonoInstaller
     [SerializeField] private InventoryBinder _inventoryBinder;
     [SerializeField] private LootBoxUnpacker _boxUnpacker;
     [SerializeField] private SpellCrafter _spellCrafter;
+    [SerializeField] private MainCardView _mainCardView;
 
     [Header("Cast")]
     [SerializeField] private SpellCaster _caster;
     [SerializeField] private TakerInteractive _taker;
     [SerializeField] private SpellBar _spellBar;
+    [SerializeField] private List<BaseSpellEffect> _spellEffects;
+    [SerializeField] private List<BaseEnemySelector> _additionalSelectors;
 
     [Header("Train")]
     [SerializeField] private Train _train;
@@ -26,9 +29,8 @@ public class MainSceneInjection : MonoInstaller
     [SerializeField] private CurrencyService _mineService;
     [SerializeField] private Shop _shop;
     [SerializeField] private PlayerWallet _playerWallet;
-    [SerializeField] private List<BaseSpellEffect> _spellEffects;
-    [SerializeField] private List<BaseEnemySelector> _additionalSelectors;
     [SerializeField] private AxisRotator _axisRotator;
+    [SerializeField] private DragContainer _dragView;
 
     public override void InstallBindings()
     {
@@ -47,13 +49,16 @@ public class MainSceneInjection : MonoInstaller
         Container.Bind<GameStateBuilder>().FromNew().AsSingle().NonLazy();
         Container.Bind<CurrencyService>().FromInstance(_mineService).AsSingle().NonLazy();
         Container.Bind<ActiveEnemies>().FromInstance(new ActiveEnemies(_enemyFactory)).AsSingle().NonLazy();
+        Container.Bind<MainCardView>().FromInstance(_mainCardView).AsSingle().NonLazy();
+        Container.Bind<DragContainer>().FromInstance(_dragView).AsSingle().NonLazy();
+
         InventoryBind<SpellElement>(_boxUnpacker);
         InventoryBind<CraftedSpell>(_spellCrafter);
     }
 
     private void InventoryBind<T>(IInventorySource source) where T : ICard
     {
-        Inventory<T> inventory = new Inventory<T>(source);
+        Inventory<T> inventory = new Inventory<T>(source, _mainCardView);
         Container.Bind<Inventory<T>>().FromInstance(inventory).AsSingle().NonLazy();
     }
 

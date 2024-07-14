@@ -15,6 +15,7 @@ public abstract class Interactable : MonoBehaviour, IStored, ICard
     [SerializeField] private Transform _view;
     [SerializeField] private Vector3 _viewDelta;
     [SerializeField] private SpellPartRarities _rarity;
+    [SerializeField] private Renderer _renderer;
 
     private Transform _transform;
 
@@ -26,6 +27,7 @@ public abstract class Interactable : MonoBehaviour, IStored, ICard
     public event Action<IStored> ReturnedToPool;
 
     public SpellPartRarities Rarity => _rarity;
+    public Renderer Renderer => _renderer;
 
     private void Awake()
     {
@@ -51,9 +53,11 @@ public abstract class Interactable : MonoBehaviour, IStored, ICard
         MoveTo(newPosition);
     }
 
-    public void MoveTo(Vector3 newPosition)
+    public void MoveTo(Vector3 newPosition, Transform newParent = null)
     {
+        _transform.rotation = Quaternion.identity;
         _transform.DOMove(newPosition + _viewDelta, AnimationDuration);
+        _transform.parent = newParent;
     }
 
     protected abstract void AwakeLoad();

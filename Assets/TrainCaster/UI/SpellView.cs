@@ -17,7 +17,7 @@ public class SpellView : CardView
 
     private void OnSpellChanged(ISpellBuild spell)
     {
-        SetSource(spell);
+        SetContent(spell);
     }
 
     protected override void MainButtonCollBack(){ }

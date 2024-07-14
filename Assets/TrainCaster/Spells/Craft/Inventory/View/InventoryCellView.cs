@@ -1,24 +1,36 @@
 ﻿using System;
+using UnityEngine;
 
 public class InventoryCellView : CardView
 {
-    private ICard _current;
     public event Action<ICard> Activated;
 
-    public override void SetSource(ICard source)
+    public ICard Content { get; private set; }
+
+    public override void SetContent(ICard content)
     {
-        _current = source;
-        base.SetSource(_current);
+        Content = content;
+        base.SetContent(Content);
+    }
+
+    public void HideContent()
+    {
+        UpdateIcon(DefaultIcon);
+    }
+
+    public void ShowContent()
+    {
+        UpdateIcon(Content.Icon);
     }
 
     protected override void MainButtonCollBack()
     {
-        if (_current != null)
-            Activated?.Invoke(_current);
+        if (Content != null)
+            Activated?.Invoke(Content);
     }
 
     protected override void AwakeCallBack()
     {
-        SetSource(null);
+        SetContent(null);
     }
 }

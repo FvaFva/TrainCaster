@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +10,7 @@ public class InventoryView : MonoBehaviour, IInitialized
     [SerializeField] private Transform _contentArea;
 
     [Inject] private GameStateBuilder _game;
+    [Inject] private DiContainer _container;
 
     private IInventory _inventory;
     private List<InventoryCellView> _slots;
@@ -44,10 +46,10 @@ public class InventoryView : MonoBehaviour, IInitialized
     }
 
     public void Init()
-    {
+    { 
         for(int i  = 0; i < _countPreload; i++)
         {
-            InventoryCellView view = Instantiate(_prefab, _contentArea);
+            InventoryCellView view = _container.InstantiatePrefab(_prefab.gameObject, _contentArea).GetComponent<InventoryCellView>();
             _slots.Add(view);
             view.Activated += OnSlotActivate;
         }
@@ -59,12 +61,12 @@ public class InventoryView : MonoBehaviour, IInitialized
 
         foreach (ICard part in _inventory.Parts)
         {
-            _slots[countInInventory].SetSource(part);
+            _slots[countInInventory].SetContent(part);
             countInInventory++;
         }
 
         for(int j = countInInventory; j < _countPreload; j++)
-            _slots[j].SetSource(null); ;
+            _slots[j].SetContent(null); ;
     }
 
     private void OnSlotActivate(ICard part)

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 [Serializable]
 public struct EnemyStatusParameters
@@ -7,6 +8,7 @@ public struct EnemyStatusParameters
     public float FixDamagePerSeconds;
     public float MoveSpeed;
     public float Duration;
+    public Sprite Icon;
 
     public bool IsSameStaticElements(EnemyStatusParameters another)
     {

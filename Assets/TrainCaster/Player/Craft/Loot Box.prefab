@@ -190,6 +190,8 @@ MonoBehaviour:
   _description: Contains items for crafting spells
   _view: {fileID: 6065126628746456220}
   _viewDelta: {x: 0, y: 0.5, z: 0}
+  _rarity: 0
+  _renderer: {fileID: 2536257219917829494}
   _drop:
   - Weight: 40
     SpellPart: {fileID: 11400000, guid: 0c3335c3e211c334f9b8583df098e3e0, type: 2}
